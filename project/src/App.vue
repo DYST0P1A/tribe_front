@@ -2,17 +2,20 @@
   <body>
     <div id="app">
       <Header />
+      <Menu />
     </div>
   </body>
 </template>
 
 <script>
 import Header from './components/Header.vue'
+import Menu from './components/Menu.vue'
 
 export default {
   name: 'App',
   components: {
-    Header
+    Header,
+	Menu
   }
 }
 </script>
