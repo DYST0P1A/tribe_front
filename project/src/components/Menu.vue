@@ -122,7 +122,7 @@ export default {
 .categories{
     width: 80%;
     height: 1500px;
-    margin: auto;
+    margin: 9% auto;
     position: relative;
 }
 
