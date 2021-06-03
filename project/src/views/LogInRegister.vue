@@ -1,5 +1,5 @@
 <template>
-<div class="content">
+<div class="forms">
   <div class="form-login">
     <form class="form-horizontal" action='' method="POST">
       <fieldset>
@@ -26,7 +26,7 @@
         <div class="control-group">
           <!-- Button -->
           <div class="controls">
-            <button class="btn btn-success">Iniciar Sesión</button>
+            <button class="btn btn-login">Iniciar Sesión</button>
           </div>
         </div>
       </fieldset>
@@ -53,6 +53,14 @@
             <input type="text" id="lastname" name="lastname" placeholder="" class="input-xlarge">
           </div>
         </div>
+
+           <div class="control-group">
+          <!-- Phone Number -->
+          <label class="control-label" for="phone">Número de teléfono</label>
+          <div class="controls">
+            <input type="text" id="phone" name="phone" placeholder="" class="input-xlarge">
+          </div>
+        </div>
     
         <div class="control-group">
           <!-- E-mail -->
@@ -73,7 +81,7 @@
         <div class="control-group">
           <!-- Button -->
           <div class="controls">
-            <button class="btn btn-success">Registrarme</button>
+            <button class="btn btn-register">Registrarme</button>
           </div>
         </div>
       </fieldset>
@@ -94,17 +102,19 @@ export default {
 }
 
 .title{
-  margin: 50px 0 20px 0;
+  margin: 50px 0 40px 0;
 }
 
-.content{
+.forms{
   display: inline-block;
   width: 50%;
+  margin-top: 40px;
 }
 
 .form-register{
   float: right;
   width: 50%;
+  border-left: 2px solid #f5b652;
 }
 
 .form-login{
@@ -112,4 +122,13 @@ export default {
   width: 50%;
 }
 
+.controls .btn-register, .controls .btn-login{
+  background-color: #f5b652;
+  border-color: #f5b652;
+  color: white;
+}
+
+.controls .btn-register:hover, .controls .btn-login:hover{
+  color: black;
+}
 </style>
