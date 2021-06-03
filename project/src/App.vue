@@ -1,8 +1,11 @@
 <template>
   <div id="app">
+    
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
         integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-  
+   
+    <a name="Up" class="arrow-up"></a>
+ 
     <div id="nav">
       <div class="nav-left">
         <img src="logo-tribe.png" alt="TRIBE - Streetwear Clothes" title="TRIBE - Streetwear Clothes">
@@ -15,8 +18,11 @@
       </div>
     </div>
     <router-view />
-       
+    <p>
+      <a href="#Up"><i class="fas fa-chevron-up"></i></a>
+    </p>
   </div>
+  
 </template>
 
 <style>
@@ -80,10 +86,10 @@ body{
 }
 
 #nav {
-  width: 100%;
+  width: 200vh;
   height: 65px;
   background: black;
-  padding: 20px;
+  padding: 20px 2%;
 }
 
 #nav a {
@@ -120,6 +126,14 @@ body{
   text-decoration: none;
 }
 
+p a {
+  color: white;
+}
+
+p a:hover {
+  color: black;
+}
+
 p a i{
   position: fixed;
 	padding: 15px;
@@ -127,7 +141,11 @@ p a i{
 	cursor: pointer;
 	bottom: 20px;
   right: 20px;
-  background: #f5b652;;
+  background: #f5b652;
+}
+
+.box-full-content a{
+  text-decoration: none;
 }
 
 </style>

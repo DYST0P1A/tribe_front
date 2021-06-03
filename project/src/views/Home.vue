@@ -1,6 +1,5 @@
 <template>
 <div>
-  <a name="Up"></a>
     <div class="categories">
             <div class="first block box">
                 <img class="zoom" src="https://footdistrict.com/media/wysiwyg/mayo-21/banner-424.jpg" alt="">
@@ -111,9 +110,6 @@
                 </div>
             </div>
     </div>
-       <p>
-      <a href="#Up"><i class="fas fa-chevron-up"></i></a>
-    </p>
 </div>
     
 </template>
@@ -129,7 +125,7 @@ export default {
 .categories{
     width: 80%;
     height: 1500px;
-    margin: 9% auto;
+    margin: auto;
     position: relative;
 }
 
