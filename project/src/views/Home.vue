@@ -1,4 +1,6 @@
 <template>
+<div>
+  <a name="Up"></a>
     <div class="categories">
             <div class="first block box">
                 <img class="zoom" src="https://footdistrict.com/media/wysiwyg/mayo-21/banner-424.jpg" alt="">
@@ -95,10 +97,10 @@
                         </div>
                         <div class="ayuda">
                             <div class="title">
-                                AYUDA
+                                CONTACTO
                             </div>
                             <ul>
-                                <li><a href="">Contacto</a></li>
+                                <li>trib3.com@gmail.com</li>
                                 <li><a href="">Guía de tallas</a></li>
                             </ul>
                         </div>
@@ -109,6 +111,11 @@
                 </div>
             </div>
     </div>
+       <p>
+      <a href="#Up"><i class="fas fa-chevron-up"></i></a>
+    </p>
+</div>
+    
 </template>
 
 <script>
@@ -126,14 +133,9 @@ export default {
     position: relative;
 }
 
-a {
-    text-decoration: none;
-}
-
 #box-cta:hover, #box-cta-dark:hover {
     color: #f5b652;
     border-bottom: 1px solid #f5b652;
-    text-decoration: none;
 }
 
 .box-full-content {
@@ -169,6 +171,7 @@ a {
     color: #ffffff;
     text-align: center;
     font-family: "hco gotham", "Montserrat", Helvetica, sans-serif;
+    text-decoration: none;
 } 
 
 .first, .second, .third{
