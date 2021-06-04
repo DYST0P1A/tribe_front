@@ -9,17 +9,17 @@
     
         <div class="control-group">
           <!-- E-mail -->
-          <label class="control-label" for="email">E-mail</label>
+          <label class="control-label" for="login-email">E-mail</label>
           <div class="controls">
-            <input type="text" id="email" name="email" placeholder="" class="input-xlarge">
+            <input type="text" id="login-email" name="login-email" placeholder="" class="input-xlarge">
           </div>
         </div>
     
         <div class="control-group">
           <!-- Password-->
-          <label class="control-label" for="password">Contraseña</label>
+          <label class="control-label" for="login-password">Contraseña</label>
           <div class="controls">
-            <input type="password" id="password" name="password" placeholder="" class="input-xlarge">
+            <input type="password" id="login-password" name="login-password" placeholder="" class="input-xlarge">
           </div>
         </div>
     
@@ -64,17 +64,17 @@
     
         <div class="control-group">
           <!-- E-mail -->
-          <label class="control-label" for="email">E-mail</label>
+          <label class="control-label" for="register-email">E-mail</label>
           <div class="controls">
-            <input type="text" id="email" name="email" placeholder="" class="input-xlarge">
+            <input type="text" id="register-email" name="register-email" placeholder="" class="input-xlarge">
           </div>
         </div>
     
         <div class="control-group">
           <!-- Password-->
-          <label class="control-label" for="password">Contraseña</label>
+          <label class="control-label" for="register-password">Contraseña</label>
           <div class="controls">
-            <input type="password" id="password" name="password" placeholder="" class="input-xlarge">
+            <input type="password" id="register-password" name="register-password" placeholder="" class="input-xlarge">
           </div>
         </div>
     
