@@ -14,6 +14,7 @@
         <router-link to="/ropa" class="nav-center">ROPA</router-link>
         <router-link to="/zapatillas" class="nav-center">ZAPATILLAS</router-link>
         <router-link to="/accesorios" class="nav-center">ACCESORIOS</router-link>
+        <router-link to="/addbrandproduct" class="nav-center">ADMIN-ADD</router-link>
       <div class="nav-right">
         <li><router-link to="/loginregister"><i class="fa fa-user fa-lg"></i></router-link></li>
         <li><router-link to="/cart"><i class="fa fa-shopping-cart fa-lg"></i></router-link></li>
