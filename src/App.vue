@@ -89,7 +89,7 @@ body{
 }
 
 #nav {
-  width: 200vh;
+  width: 100%;
   height: 65px;
   background: black;
   padding: 20px 2%;
