@@ -8,6 +8,8 @@ import LogInRegister from '../views/LogInRegister.vue'
 import AdminAddBrandProduct from '../views/AdminAddBrandProduct.vue'
 import AddProduct from '../views/AddProduct.vue'
 import AddBrand from '../views/AddBrand.vue'
+import Brands from '../views/Brands.vue'
+import BuyAndSell from '../views/BuyAndSell.vue'
 
 Vue.use(VueRouter)
 
@@ -50,7 +52,18 @@ const routes = [{
         path: '/addbrand',
         name: 'AddBrand',
         component: AddBrand
+    },
+    {
+        path: '/marcas',
+        name: 'Brands',
+        component: Brands
+    },
+    {
+        path: '/compraventa',
+        name: 'BuyAndSell',
+        component: BuyAndSell
     }
+
 ]
 
 const router = new VueRouter({

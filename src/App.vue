@@ -10,12 +10,22 @@
       <div class="nav-left">
         <img src="logo-tribe.png" alt="TRIBE - Streetwear Clothes" title="TRIBE - Streetwear Clothes">
       </div>
-        <router-link to="/" class="nav-center">HOME</router-link>
-        <router-link to="/ropa" class="nav-center">ROPA</router-link>
-        <router-link to="/zapatillas" class="nav-center">ZAPATILLAS</router-link>
-        <router-link to="/accesorios" class="nav-center">ACCESORIOS</router-link>
-        <router-link to="/addbrandproduct" class="nav-center">ADMIN-ADD</router-link>
+      <div class="nav-center">
+        <router-link to="/" >HOME</router-link>
+        <router-link to="/ropa" >ROPA</router-link>
+        <router-link to="/marcas" >MARCAS</router-link>
+        <router-link to="/zapatillas" >ZAPATILLAS</router-link>
+        <router-link to="/accesorios" >ACCESORIOS</router-link>
+        <router-link to="/compraventa" >COMPRAVENTA</router-link>
+        <router-link to="/addbrandproduct" >ADMIN-ADD</router-link>
+      </div>
       <div class="nav-right">
+        <li>
+          <form class="searcher">
+            <button class="btn-searcher"><i class="fa fa-search fa-md"></i></button>
+            <input class="input-searcher" type="search" id="mySearch" name="s" placeholder="Buscar..." size="15">
+          </form>
+        </li>
         <li><router-link to="/loginregister"><i class="fa fa-user fa-lg"></i></router-link></li>
         <li><router-link to="/cart"><i class="fa fa-shopping-cart fa-lg"></i></router-link></li>
       </div>
@@ -89,7 +99,7 @@ body{
 }
 
 #nav {
-  width: 200vh;
+  width: 100%;
   height: 65px;
   background: black;
   padding: 20px 2%;
@@ -100,7 +110,6 @@ body{
   color: white;
   padding: 10px;
   text-decoration: none;
-  margin: auto;
 }
 
 #nav a:hover {
@@ -115,15 +124,28 @@ body{
 }
 
 #nav .nav-center {
-  padding: 0 40px;
+  width: 65%;
+  height: 60px;
+  margin-left: 190px;
+}
+
+#nav .nav-center a{
+  padding: 0 25px;
+  float: left;
 }
 
 .nav-right{
   float: right;
+  position: absolute;
+  right: 2%;
+  top: 2.2%;
+  width: 25%;
 }
 
 .nav-right li{
-  display: inline;
+  display: inline-block;
+  vertical-align: middle;
+  padding: 0 10px;
 }
 
 #nav a.router-link-exact-active {
@@ -154,6 +176,27 @@ p a i{
 
 .box-full-content a{
   text-decoration: none;
+}
+
+.btn-searcher{
+  color: #f5b652;
+  background: black;
+  border: 0px;
+}
+
+.box input{
+  color: #f5b652;
+  border: 0px;
+}
+
+.input-searcher{
+  background: black;
+  border: 0px;
+  color: #f5b652;
+}
+
+.searcher ::placeholder{
+  color: #fff;
 }
 
 </style>
