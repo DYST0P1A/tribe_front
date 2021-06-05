@@ -12,10 +12,8 @@
       </div>
       <div class="nav-center">
         <router-link to="/" >HOME</router-link>
-        <router-link to="/ropa" >ROPA</router-link>
+        <router-link to="/productos" >PRODUCTOS</router-link>
         <router-link to="/marcas" >MARCAS</router-link>
-        <router-link to="/zapatillas" >ZAPATILLAS</router-link>
-        <router-link to="/accesorios" >ACCESORIOS</router-link>
         <router-link to="/compraventa" >COMPRAVENTA</router-link>
         <router-link to="/addbrandproduct" >ADMIN-ADD</router-link>
       </div>
@@ -154,6 +152,18 @@ body{
 
 #nav a.router-link-exact-active:hover {
   text-decoration: none;
+}
+
+.controls .btn-tribe{
+  background-color: #f5b652;
+  border-color: #f5b652;
+  color: white;
+  margin: 5px 10px;
+}
+
+.controls .btn-tribe:hover{
+  color: black;
+  background: #db9f3f;
 }
 
 p a {
