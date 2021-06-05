@@ -8,7 +8,8 @@ let url = `https://tribeback.herokuapp.com/api/`;
 export default new Vuex.Store({
     state: {
         products: [],
-        cart: []
+        cart: [],
+        brands: []
     },
     mutations: {
         fetchProducts(state, data){
@@ -16,6 +17,9 @@ export default new Vuex.Store({
         },
         fetchCart(state, data){
             state.cart = data
+        },
+        fetchBrands(state, data){
+            state.brands = data
         },
         addToCart(state, id) {
             let product = state.products.find(p => p.id === id)
@@ -56,6 +60,11 @@ export default new Vuex.Store({
         fetchProductsData({commit}) {
             axios.get(url + 'products').then((res) => {
                 commit('fetchProducts', res.data)
+            })
+        },
+        fetchBrandsData({commit}) {
+            axios.get(url + 'brands').then((res) => {
+                commit('fetchBrands', res.data)
             })
         },
         addToCart(context, id) {

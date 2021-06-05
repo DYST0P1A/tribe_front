@@ -43,7 +43,7 @@
               </b-row>
             </b-card-text>
               <div class="controls">
-                <button class="btn btn-register" v-on:click="checkout" to="/checkout">Checkout</button>
+                <router-link to="/checkout"><button class="btn btn-tribe" v-on:click="checkout">Checkout</button></router-link>
               </div>
           </b-card>
   </b-container>

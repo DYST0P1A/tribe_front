@@ -26,7 +26,7 @@
         <div class="control-group">
           <!-- Button -->
           <div class="controls">
-            <button class="btn btn-login">Iniciar Sesión</button>
+            <button class="btn btn-tribe">Iniciar Sesión</button>
           </div>
         </div>
       </fieldset>
@@ -81,7 +81,7 @@
         <div class="control-group">
           <!-- Button -->
           <div class="controls">
-            <button class="btn btn-register">Registrarme</button>
+            <button class="btn btn-tribe">Registrarme</button>
           </div>
         </div>
       </fieldset>
@@ -120,15 +120,5 @@ export default {
 .form-login{
   float: left;
   width: 50%;
-}
-
-.controls .btn-register, .controls .btn-login{
-  background-color: #f5b652;
-  border-color: #f5b652;
-  color: white;
-}
-
-.controls .btn-register:hover, .controls .btn-login:hover{
-  color: black;
 }
 </style>
