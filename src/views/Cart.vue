@@ -42,7 +42,9 @@
                 </b-col>
               </b-row>
             </b-card-text>
-            <b-button variant="primary"  v-on:click="checkout" to="/checkout">Checkout</b-button>
+              <div class="controls">
+                <button class="btn btn-register" v-on:click="checkout" to="/checkout">Checkout</button>
+              </div>
           </b-card>
   </b-container>
 </template>
@@ -62,3 +64,11 @@ export default {
 };
 </script>
 
+<style>
+
+.font-weight-bold {
+  width: 50%;
+  margin: auto;
+}
+
+</style>
