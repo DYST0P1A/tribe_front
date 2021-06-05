@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import Product from '../views/Product.vue'
 import Cart from '../views/Cart.vue'
 import Checkout from '../views/Checkout.vue'
 import ProductDetail from '../views/ProductDetail.vue'
@@ -8,6 +9,8 @@ import LogInRegister from '../views/LogInRegister.vue'
 import AdminAddBrandProduct from '../views/AdminAddBrandProduct.vue'
 import AddProduct from '../views/AddProduct.vue'
 import AddBrand from '../views/AddBrand.vue'
+import Brand from '../views/Brand.vue'
+import BuyAndSell from '../views/BuyAndSell.vue'
 
 Vue.use(VueRouter)
 
@@ -20,6 +23,11 @@ const routes = [{
         path: '/loginregister',
         name: 'LogInRegister',
         component: LogInRegister
+    },
+    {
+        path: '/productos',
+        name: 'Product',
+        component: Product
     },
     {
         path: '/cart',
@@ -50,7 +58,18 @@ const routes = [{
         path: '/addbrand',
         name: 'AddBrand',
         component: AddBrand
+    },
+    {
+        path: '/marcas',
+        name: 'Brand',
+        component: Brand
+    },
+    {
+        path: '/compraventa',
+        name: 'BuyAndSell',
+        component: BuyAndSell
     }
+
 ]
 
 const router = new VueRouter({

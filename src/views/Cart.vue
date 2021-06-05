@@ -42,7 +42,9 @@
                 </b-col>
               </b-row>
             </b-card-text>
-            <b-button variant="primary"  v-on:click="checkout" to="/checkout">Checkout</b-button>
+              <div class="controls">
+                <router-link to="/checkout"><button class="btn btn-tribe" v-on:click="checkout">Checkout</button></router-link>
+              </div>
           </b-card>
   </b-container>
 </template>
@@ -62,3 +64,11 @@ export default {
 };
 </script>
 
+<style>
+
+.font-weight-bold {
+  width: 50%;
+  margin: auto;
+}
+
+</style>
