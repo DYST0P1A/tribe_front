@@ -14,6 +14,7 @@
         <router-link to="/" >HOME</router-link>
         <router-link to="/productos" >PRODUCTOS</router-link>
         <router-link to="/marcas" >MARCAS</router-link>
+        <router-link to="/categorias" >CATEGORIAS</router-link>
         <router-link to="/compraventa" >COMPRAVENTA</router-link>
         <router-link to="/addbrandproduct" >ADMIN-ADD</router-link>
       </div>

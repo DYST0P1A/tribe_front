@@ -11,6 +11,7 @@ import AddProduct from '../views/AddProduct.vue'
 import AddBrand from '../views/AddBrand.vue'
 import Brand from '../views/Brand.vue'
 import BuyAndSell from '../views/BuyAndSell.vue'
+import Category from '../views/Category.vue'
 
 Vue.use(VueRouter)
 
@@ -63,6 +64,11 @@ const routes = [{
         path: '/marcas',
         name: 'Brand',
         component: Brand
+    },
+    {
+        path: '/categorias',
+        name: 'Category',
+        component: Category
     },
     {
         path: '/compraventa',

@@ -54,7 +54,7 @@ export default {
   name: "ProductDetail",
   components: {},
   created() {
-    store.dispatch("fetchProduct", this.$route.params.id);
+    store.dispatch("fetchProduct", this.$route.params._id);
   },
 };
 </script>

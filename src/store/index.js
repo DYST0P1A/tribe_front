@@ -8,18 +8,26 @@ let url = `https://tribeback.herokuapp.com/api/`;
 export default new Vuex.Store({
     state: {
         products: [],
+        productsUsed: [],
         cart: [],
-        brands: []
+        brands: [],
+        categories: []
     },
     mutations: {
-        fetchProducts(state, data){
+        fetchProducts(state, data) {
             state.products = data
         },
-        fetchCart(state, data){
+        fetchProductsUsed(state, data) {
+            state.productsUsed = data
+        },
+        fetchCart(state, data) {
             state.cart = data
         },
-        fetchBrands(state, data){
+        fetchBrands(state, data) {
             state.brands = data
+        },
+        fetchCategories(state, data) {
+            state.categories = data
         },
         addToCart(state, id) {
             let product = state.products.find(p => p.id === id)
@@ -32,51 +40,66 @@ export default new Vuex.Store({
         },
         increment(state, id) {
             let product = state.cart.find(p => p.id === id)
-            if (product.amount >= 0){
+            if (product.amount >= 0) {
                 product.amount++
             }
         },
         decrement(state, id) {
             let product = state.cart.find(p => p.id === id)
-            if (product.amount > 1){
+            if (product.amount > 1) {
                 product.amount--
             }
         },
         remove(state, id) {
             let product = state.cart.find(p => p.id === id)
-            state.cart.splice(product,1)
+            state.cart.splice(product, 1)
         }
     },
     getters: {
         totalCart(state) {
             return state.cart.map(p => p.price * p.amount)
-                             .reduce( (previousValue, currentValue) => previousValue + currentValue, 0)
+                .reduce((previousValue, currentValue) => previousValue + currentValue, 0)
         },
-        totalByRow(state){
+        totalByRow(state) {
             return state.cart.map(p => p.price * p.amount)
         }
     },
     actions: {
-        fetchProductsData({commit}) {
+        fetchProductsData({ commit }) {
             axios.get(url + 'products').then((res) => {
                 commit('fetchProducts', res.data)
             })
         },
-        fetchBrandsData({commit}) {
+        fetchProductsUsedData({ commit }) {
+            axios.get(url + 'productsUsed').then((res) => {
+                commit('fetchProductsUsed', res.data)
+            })
+        },
+        fetchBrandsData({ commit }) {
             axios.get(url + 'brands').then((res) => {
                 commit('fetchBrands', res.data)
+            })
+        },
+        fetchCategoriesData({ commit }) {
+            axios.get(url + 'categories').then((res) => {
+                commit('fetchCategories', res.data)
+            })
+        },
+        fetchProduct({ commit }) {
+            axios.get(url + 'products/getById').then((res) => {
+                commit('fetchProducts', res.data)
             })
         },
         addToCart(context, id) {
             let product = context.state.cart.find(p => p.id === id)
             if (product) {
                 context.commit('increment', id)
-            }else {
+            } else {
                 context.commit('addToCart', id)
             }
         }
     },
     modules: {
-    
+
     }
 })

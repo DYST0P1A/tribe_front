@@ -1,8 +1,12 @@
 <template>
   <div class="content">
-    <div class="card-brand" v-for="item in $store.state.brands" :key="item._id">
-      <img :src="item.logo" class="brand-img" />
-      <span class="brand-name">
+    <div
+      class="card-category"
+      v-for="item in $store.state.categories"
+      :key="item.id"
+    >
+      <img :src="item.image" class="category-img" />
+      <span class="category-name">
         {{ item.name }}
       </span>
     </div>
@@ -11,9 +15,9 @@
 
 <script>
 export default {
-  name: "Brand",
+  name: "Category",
   created() {
-    this.$store.dispatch("fetchBrandsData");
+    this.$store.dispatch("fetchCategoriesData");
   },
 };
 </script>
@@ -24,7 +28,7 @@ export default {
   margin: auto;
 }
 
-.card-brand {
+.card-category {
   border: 1px solid black;
   width: 250px;
   margin: 20px 40px 20px 25px;
@@ -32,19 +36,19 @@ export default {
   box-shadow: #a09f9f 2px 3px 5px 1px;
 }
 
-.brand-img {
+.category-img {
   width: 150px;
   height: 120px;
   margin: 15px;
   vertical-align: middle;
 }
 
-.brand-name {
-  font-size: 15px;
+.category-name {
+  font-size: 18px;
   margin: 10px 20px;
 }
 
-.btn-brand {
+.btn-category {
   margin-top: 10px;
 }
 </style>
