@@ -79,7 +79,7 @@ export default {
   position: relative;
   border: 1px solid black;
   width: 225px;
-  height: 510px;
+  height: 530px;
   margin: 20px 40px 20px 25px;
   display: inline-block;
   box-shadow: #a09f9f 2px 3px 5px 1px ;
