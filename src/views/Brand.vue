@@ -1,50 +1,47 @@
 <template>
-  <div class="content">
-    <div class="card-brand" v-for="item in $store.state.brands" :key="item._id">
-      <img :src="item.logo" class="brand-img" />
-      <span class="brand-name">
-        {{ item.name }}
-      </span>
+      <div class="content">
+        <div class="card-brand zoom" v-for="item in $store.state.brands" :key="item.id">
+            <router-link to="/productos">
+              <img :src="item.logo" class="brand-img" /><br>
+              <span class="product-name">
+              {{ item.name }} 
+              </span>
+            </router-link>
+        </div>
     </div>
-  </div>
 </template>
 
 <script>
 export default {
-  name: "Brand",
+  name: 'Brand',
   created() {
-    this.$store.dispatch("fetchBrandsData");
-  },
-};
+      this.$store.dispatch('fetchBrandsData')
+  }
+}
 </script>
 
 <style>
-.content {
-  width: 80%;
-  margin: auto;
-}
-
 .card-brand {
   border: 1px solid black;
   width: 250px;
   margin: 20px 40px 20px 25px;
   display: inline-block;
-  box-shadow: #a09f9f 2px 3px 5px 1px;
+  box-shadow: #a09f9f 2px 3px 5px 1px ;
 }
 
-.brand-img {
+.card-brand:hover{
+  border: 1px solid #f5b652;
+  cursor: pointer;
+}
+
+.brand-img{
   width: 150px;
   height: 120px;
   margin: 15px;
   vertical-align: middle;
 }
 
-.brand-name {
-  font-size: 15px;
-  margin: 10px 20px;
-}
-
-.btn-brand {
-  margin-top: 10px;
+.card-brand a{
+  text-decoration: none;
 }
 </style>
