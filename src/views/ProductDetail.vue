@@ -1,3 +1,4 @@
+
 <template>
   <b-container class="ProductDetail">
     <b-row>
@@ -11,8 +12,8 @@
             background="#ababab"
             style="text-shadow: 1px 1px 2px #333;"
           >
-            <div v-for="image in $store.state.images" :key="image.id">
-              <b-carousel-slide :img-src="image.url"></b-carousel-slide>
+            <div v-for="item in $store.state.images" :key="item.id">
+              <b-carousel-slide :src="item.images.image"></b-carousel-slide>
             </div>
             
           </b-carousel>
@@ -20,25 +21,23 @@
           <b-card-text class="font-weight-bold" align="right">
             <b-row class="mt-2">
               <b-col align="left">
-                {{ $store.state.product.name }}
+                {{ $store.state.products.name }}
               </b-col>
               <b-col align="right">
-                {{ $store.state.product.price }} €
+                {{ $store.state.products.price }} €
               </b-col>
             </b-row>
           </b-card-text>
 
           <b-card-text bg-variant="dark" align="left">
-            {{ $store.state.product.description }}
+            {{ $store.state.products.description }}
           </b-card-text>
 
-          <b-button class="mr-4" variant="primary" to="/">Back</b-button>
+            <div class="controls">
+              <b-button class="btn btn-tribe" to="/productos">Volver</b-button>
+              <button class="btn btn-tribe" @click="$store.dispatch('addToCart', item.id)">Añadir</button>
+            </div>
                   
-          <b-button
-            variant="primary"
-            @click="$store.dispatch('addToCart', $store.state.product)"
-            >Add</b-button
-          >
         </b-card>
       </b-col>
       <b-col></b-col>
@@ -48,13 +47,12 @@
 
 
 <script>
-import store from "../store/index.js";
 
 export default {
   name: "ProductDetail",
   components: {},
   created() {
-    store.dispatch("fetchProduct", this.$route.params._id);
+    this.$store.dispatch('fetchProductsData')
   },
 };
 </script>
@@ -72,6 +70,5 @@ export default {
 .carousel-control-next {
   margin-right: -100px;
 }
-
 
 </style>
