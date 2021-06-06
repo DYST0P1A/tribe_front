@@ -1,16 +1,14 @@
 <template>
-  <div class="content">
-    <div
-      class="card-category"
-      v-for="item in $store.state.categories"
-      :key="item.id"
-    >
-      <img :src="item.image" class="category-img" />
-      <span class="category-name">
-        {{ item.name }}
-      </span>
+      <div class="content">
+        <div class="card-brand zoom" v-for="item in $store.state.categories" :key="item.id">
+            <router-link to="/productos">
+              <img :src="item.image" class="brand-img" /><br>
+              <span class="product-name">
+              {{ item.name }} 
+              </span>
+            </router-link>
+        </div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -24,7 +22,7 @@ export default {
 
 <style>
 .content {
-  width: 80%;
+  width: 75%;
   margin: auto;
 }
 
