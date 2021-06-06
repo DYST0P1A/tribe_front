@@ -28,7 +28,9 @@
                 </b-col>
               </b-row>
             </b-card-text>
-            <b-button variant="primary" to="/cart">Checkout</b-button>
+            <div class="controls">
+              <b-button variant="primary btn-tribe" to="/cart">Checkout</b-button>
+            </div>
           </b-card>
     </b-container>
 </template>
@@ -38,3 +40,10 @@ export default {
   name: 'CartHome'
 }
 </script>
+
+<style>
+
+.CartHome{
+  margin-top: 10%;
+}
+</style>

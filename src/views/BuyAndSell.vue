@@ -1,4 +1,5 @@
 <template>
+<div class="content">
   <b-row>
     <b-col cols="8">
       <b-row>
@@ -13,8 +14,9 @@
               border-variant="dark"
               :header="item.name"
               :img-src="item.images[0].image"
-              class="mb-md-2"
+              class="mb-md-2  card-producto"
             >
+             <div class="card-content">
               <b-card-text class="font-weight-bold" align="center">
                 VENDEDOR: {{ item.nameSeller }} 
               </b-card-text>
@@ -23,24 +25,28 @@
                 {{ item.price }} €
               </b-card-text>
 
-              <router-link
-                :to="{ name: 'ProductDetail', params: { id: item._id } }"
-              >
-                <b-button class="mr-3" variant="primary">View</b-button>
-              </router-link>
+              <div class="controls">
+                <router-link
+                  :to="{ name: 'ProductDetail', params: { id: item._id } }"
+                >
+                  <b-button class="mr-3 btn-tribe" variant="primary">Ver</b-button>
+                </router-link>
 
-              <b-button
-                variant="primary"
-                @click="$store.dispatch('addToCart', item)"
-                >Add</b-button
-              >
+                <b-button
+                  class="btn-tribe"
+                  variant="primary"
+                  @click="$store.dispatch('addToCart', item)"
+                  >Añadir</b-button
+                >
 
-              <b-button
-                class="ml-2"
-                variant="danger"
-                @click="$store.dispatch('decrementProduct', item.id)"
-                >-</b-button
-              >
+                <b-button
+                  class="ml-2"
+                  variant="danger"
+                  @click="$store.dispatch('decrementProduct', item.id)"
+                  >-</b-button
+                >
+                </div>
+              </div>
             </b-card>
           </b-col>
         </b-card-group>
@@ -50,6 +56,7 @@
       <CartProduct />
     </b-col>
   </b-row>
+</div>
 </template>
 
 <script>
@@ -68,11 +75,14 @@ export default {
 </script>
 
 <style>
-.product-name {
-  font-size: 15px;
-}
-
-.product-price {
-  font-size: 20px;
+.card-producto{
+  position: relative;
+  border: 1px solid black;
+  width: 225px;
+  height: 530px;
+  margin: 20px 40px 20px 25px;
+  display: inline-block;
+  box-shadow: #a09f9f 2px 3px 5px 1px ;
+  vertical-align: middle;
 }
 </style>
