@@ -1,6 +1,6 @@
 <template>
   <b-container class="cart">
-     <h1>CART</h1>
+     <h1>CARRITO</h1>
           <b-card  class="font-weight-bold">
             <div v-for="(item, index) in $store.state.cart" :key="item.id">
               <b-row class="mt-4">
