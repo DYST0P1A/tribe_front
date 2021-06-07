@@ -12,8 +12,8 @@
             background="#ababab"
             style="text-shadow: 1px 1px 2px #333;"
           >
-            <div v-for="item in $store.state.images" :key="item.id">
-              <b-carousel-slide :src="item.images.image"></b-carousel-slide>
+            <div v-for="item in $store.state.images" :key="item.image">
+              <b-carousel-slide :img-src="item.image"></b-carousel-slide>
             </div>
             
           </b-carousel>
@@ -21,16 +21,16 @@
           <b-card-text class="font-weight-bold" align="right">
             <b-row class="mt-2">
               <b-col align="left">
-                {{ $store.state.products.name }}
+                {{ $store.state.product.name }}
               </b-col>
               <b-col align="right">
-                {{ $store.state.products.price }} €
+                {{ $store.state.product.price }} €
               </b-col>
             </b-row>
           </b-card-text>
 
           <b-card-text bg-variant="dark" align="left">
-            {{ $store.state.products.description }}
+            {{ $store.state.product.description }}
           </b-card-text>
 
             <div class="controls">
@@ -47,12 +47,13 @@
 
 
 <script>
+import store from "../store/index.js";
 
 export default {
   name: "ProductDetail",
   components: {},
   created() {
-    this.$store.dispatch('fetchProductsData')
+    store.dispatch("fetchProduct", this.$route.params.id);
   },
 };
 </script>

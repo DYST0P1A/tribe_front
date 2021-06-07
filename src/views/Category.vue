@@ -1,7 +1,7 @@
 <template>
       <div class="content">
         <div class="card-brand zoom" v-for="item in $store.state.categories" :key="item.id">
-            <router-link to="/productos">
+            <router-link :to="{ name: 'ProductsByCategory', params: { category: item.name } }">
               <img :src="item.image" class="brand-img" /><br>
               <span class="product-name">
               {{ item.name }} 
