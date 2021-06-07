@@ -16,7 +16,7 @@ export default {
   name: 'Brand',
   created() {
       this.$store.dispatch('fetchBrandsData')
-      this.$store.dispatch('fetchProductByBrand')
+      this.$store.dispatch('fetchProductsByBrand')
   }
 }
 </script>

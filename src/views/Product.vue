@@ -14,7 +14,7 @@
               class="mb-md-2 card-product"
             >
             <div class="card-content">
-              <b-card-text class="font-weight-bold" align="right">
+              <b-card-text class="font-weight-bold" align="center">
                 {{ item.price }} €
               </b-card-text>
 

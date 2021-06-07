@@ -21,13 +21,13 @@
                 VENDEDOR: {{ item.nameSeller }} 
               </b-card-text>
 
-              <b-card-text class="font-weight-bold" align="right">
+              <b-card-text class="font-weight-bold" align="center">
                 {{ item.price }} €
               </b-card-text>
 
               <div class="controls">
                 <router-link
-                  :to="{ name: 'ProductDetail', params: { id: item._id } }"
+                  :to="{ name: 'ProductUsedDetail', params: { id: item._id } }"
                 >
                   <b-button class="mr-3 btn-tribe" variant="primary">Ver</b-button>
                 </router-link>

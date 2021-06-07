@@ -13,7 +13,9 @@ export default new Vuex.Store({
         brands: [''],
         categories: [''],
         product: '',
-        images: ['']
+        images: [''],
+        sizes: ['']
+
     },
     mutations: {
         fetchProducts(state, data) {
@@ -21,10 +23,16 @@ export default new Vuex.Store({
         },
         fetchProduct(state, data) {
             state.images = data.images
+            state.sizes = data.sizes
             state.product = data
         },
         fetchProductsUsed(state, data) {
             state.productsUsed = data
+        },
+        fetchProductUsed(state, data) {
+            state.images = data.images
+            state.sizes = data.sizes
+            state.productUsed = data
         },
         fetchCart(state, data) {
             state.cart = data
@@ -76,9 +84,37 @@ export default new Vuex.Store({
                 commit('fetchProducts', res.data)
             })
         },
+        fetchProduct({ commit }, id) {
+            axios.post(url + 'products/getById', { "id": id }, { headers: { 'Content-Type': 'application/json' } }).then((res) => {
+                commit('fetchProduct', res.data)
+            }).catch(error => {
+                console.log(error.response)
+            })
+        },
+        fetchProductsByBrand({ commit }, id) {
+            axios.post(url + 'products/getByBrand', { "brand": id }, { headers: { 'Content-Type': 'application/json' } }).then((res) => {
+                commit('fetchProducts', res.data)
+            }).catch(error => {
+                console.log(error.response)
+            })
+        },
+        fetchProductsByCategory({ commit }, id) {
+            axios.post(url + 'products/getByCategory', { "category": id }, { headers: { 'Content-Type': 'application/json' } }).then((res) => {
+                commit('fetchProducts', res.data)
+            }).catch(error => {
+                console.log(error.response)
+            })
+        },
         fetchProductsUsedData({ commit }) {
             axios.get(url + 'productsUsed').then((res) => {
                 commit('fetchProductsUsed', res.data)
+            })
+        },
+        fetchProductUsed({ commit }, id) {
+            axios.post(url + 'productsUsed/getById', { "id": id }, { headers: { 'Content-Type': 'application/json' } }).then((res) => {
+                commit('fetchProductUsed', res.data)
+            }).catch(error => {
+                console.log(error.response)
             })
         },
         fetchBrandsData({ commit }) {
@@ -89,27 +125,6 @@ export default new Vuex.Store({
         fetchCategoriesData({ commit }) {
             axios.get(url + 'categories').then((res) => {
                 commit('fetchCategories', res.data)
-            })
-        },
-        fetchProduct({ commit }, id) {
-            axios.post(url + 'products/getById', {"id": id}, { headers: {'Content-Type': 'application/json'}}).then((res) => {
-                commit('fetchProduct', res.data)
-            }).catch(error => {
-                console.log(error.response)
-            })
-        },
-        fetchProductByBrand({ commit }, id) {
-            axios.post(url + 'products/getByBrand', {"brand": id}, { headers: {'Content-Type': 'application/json'}}).then((res) => {
-                commit('fetchProducts', res.data)
-            }).catch(error => {
-                console.log(error.response)
-            })
-        },
-        fetchProductByCategory({ commit }, id) {
-            axios.post(url + 'products/getByCategory', {"category": id}, { headers: {'Content-Type': 'application/json'}}).then((res) => {
-                commit('fetchProducts', res.data)
-            }).catch(error => {
-                console.log(error.response)
             })
         },
         addToCart(context, id) {
