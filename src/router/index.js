@@ -12,6 +12,8 @@ import AddBrand from '../views/AddBrand.vue'
 import Brand from '../views/Brand.vue'
 import BuyAndSell from '../views/BuyAndSell.vue'
 import Category from '../views/Category.vue'
+import ProductsByBrand from '../views/ProductsByBrand.vue'
+import ProductsByCategory from '../views/ProductsByCategory.vue'
 
 Vue.use(VueRouter)
 
@@ -74,6 +76,16 @@ const routes = [{
         path: '/compraventa',
         name: 'BuyAndSell',
         component: BuyAndSell
+    },
+    {
+        path: '/productsByBrand',
+        name: 'ProductsByBrand',
+        component: ProductsByBrand
+    },
+    {
+        path: '/productsByCategory',
+        name: 'ProductsByCategory',
+        component: ProductsByCategory
     }
 
 ]

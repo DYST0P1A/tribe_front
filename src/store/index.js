@@ -7,15 +7,21 @@ let url = `https://tribeback.herokuapp.com/api/`;
 
 export default new Vuex.Store({
     state: {
-        products: [],
-        productsUsed: [],
-        cart: [],
-        brands: [],
-        categories: []
+        products: [''],
+        productsUsed: [''],
+        cart: [''],
+        brands: [''],
+        categories: [''],
+        product: '',
+        images: ['']
     },
     mutations: {
         fetchProducts(state, data) {
             state.products = data
+        },
+        fetchProduct(state, data) {
+            state.images = data.images
+            state.product = data
         },
         fetchProductsUsed(state, data) {
             state.productsUsed = data
@@ -86,13 +92,24 @@ export default new Vuex.Store({
             })
         },
         fetchProduct({ commit }, id) {
-            axios.get(url + 'products/getById/', { params: { id: id } }).then((res) => {
-                commit('fetchProducts', res.data)
+            axios.post(url + 'products/getById', {"id": id}, { headers: {'Content-Type': 'application/json'}}).then((res) => {
+                commit('fetchProduct', res.data)
+            }).catch(error => {
+                console.log(error.response)
             })
         },
         fetchProductByBrand({ commit }, id) {
-            axios.get(url + 'products/getByBrand/', { params: { id: id } }).then((res) => {
+            axios.post(url + 'products/getByBrand', {"brand": id}, { headers: {'Content-Type': 'application/json'}}).then((res) => {
                 commit('fetchProducts', res.data)
+            }).catch(error => {
+                console.log(error.response)
+            })
+        },
+        fetchProductByCategory({ commit }, id) {
+            axios.post(url + 'products/getByCategory', {"category": id}, { headers: {'Content-Type': 'application/json'}}).then((res) => {
+                commit('fetchProducts', res.data)
+            }).catch(error => {
+                console.log(error.response)
             })
         },
         addToCart(context, id) {
