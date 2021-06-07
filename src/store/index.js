@@ -85,8 +85,13 @@ export default new Vuex.Store({
                 commit('fetchCategories', res.data)
             })
         },
-        fetchProduct({ commit }) {
-            axios.get(url + 'products/getById').then((res) => {
+        fetchProduct({ commit }, id) {
+            axios.get(url + 'products/getById/', { params: { id: id } }).then((res) => {
+                commit('fetchProducts', res.data)
+            })
+        },
+        fetchProductByBrand({ commit }, id) {
+            axios.get(url + 'products/getByBrand/', { params: { id: id } }).then((res) => {
                 commit('fetchProducts', res.data)
             })
         },

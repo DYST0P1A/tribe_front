@@ -12,8 +12,8 @@
             background="#ababab"
             style="text-shadow: 1px 1px 2px #333;"
           >
-            <div v-for="item in $store.state.images" :key="item.id">
-              <b-carousel-slide :src="item.images.image"></b-carousel-slide>
+            <div v-for="item in $store.state.products.images" :key="item._id">
+              <b-carousel-slide :img-src="images.image"></b-carousel-slide>
             </div>
             
           </b-carousel>
@@ -47,12 +47,13 @@
 
 
 <script>
+import store from "../store/index.js";
 
 export default {
   name: "ProductDetail",
   components: {},
   created() {
-    this.$store.dispatch('fetchProductsData')
+    store.dispatch("fetchProduct", this.$route.params._id);
   },
 };
 </script>

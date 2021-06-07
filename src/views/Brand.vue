@@ -1,7 +1,7 @@
 <template>
       <div class="content">
         <div class="card-brand zoom" v-for="item in $store.state.brands" :key="item.id">
-            <router-link to="/productos">
+            <router-link  :to="{ name: 'Product', params: { id: item._id } }">
               <img :src="item.logo" class="brand-img" /><br>
               <span class="product-name">
               {{ item.name }} 
@@ -16,6 +16,7 @@ export default {
   name: 'Brand',
   created() {
       this.$store.dispatch('fetchBrandsData')
+      this.$store.dispatch('fetchProductByBrand')
   }
 }
 </script>
