@@ -22,7 +22,7 @@
         <router-link to="/productos">PRODUCTOS</router-link>
         <router-link to="/marcas">MARCAS</router-link>
         <router-link to="/categorias">CATEGORIAS</router-link>
-        <router-link to="/productosUsados">COMPRAVENTA</router-link>
+        <router-link to="/compraventa">COMPRAVENTA</router-link>
         <router-link to="/addbrandproduct">ADMIN-ADD</router-link>
       </div>
       <div class="nav-right">
@@ -42,7 +42,21 @@
           </form>
         </li>
         <li>
-          <router-link to="/loginregister"
+          <a v-if="userLogged">{{ userLogged }}</a>
+        </li>
+        <button
+          v-if="userLogged"
+          class="btn btn-danger"
+          v-on:click="logout"
+          value=""
+        >
+          Cerrar sesión
+        </button>
+        <li>
+          <router-link v-if="userLogged" to="vistaPerfil"
+            ><i class="fa fa-user fa-lg"></i
+          ></router-link>
+          <router-link v-else to="/loginregister"
             ><i class="fa fa-user fa-lg"></i
           ></router-link>
         </li>
@@ -106,6 +120,23 @@
     </div>
   </div>
 </template>
+
+<script>
+import auth from "@/logic/auth";
+export default {
+  methods: {
+    logout: function () {
+      auth.deleteUserLogged();
+      window.location.reload();
+    },
+  },
+  computed: {
+    userLogged() {
+      return auth.getNameLogged();
+    },
+  },
+};
+</script>
 
 <style>
 html,

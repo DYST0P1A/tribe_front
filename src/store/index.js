@@ -27,7 +27,9 @@ export default new Vuex.Store({
             state.product = data
         },
         fetchProductsUsed(state, data) {
+            console.log('entra')
             state.productsUsed = data
+            console.log(data)
         },
         fetchProductUsed(state, data) {
             state.images = data.images
@@ -107,7 +109,10 @@ export default new Vuex.Store({
         },
         fetchProductsUsedData({ commit }) {
             axios.get(url + 'productsUsed').then((res) => {
+                console.log("dkfdlf")
                 commit('fetchProductsUsed', res.data)
+            }).catch(error => {
+                console.log(error.response)
             })
         },
         fetchProductUsed({ commit }, id) {

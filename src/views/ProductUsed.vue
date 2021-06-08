@@ -62,9 +62,8 @@
 <script>
 import store from "../store/index.js";
 import CartProduct from "../components/CartProduct.vue";
-
 export default {
-  name: "Product",
+  name: "ProducUsed",
   components: {
     CartProduct,
   },

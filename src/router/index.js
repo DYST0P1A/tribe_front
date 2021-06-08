@@ -15,6 +15,7 @@ import ProductUsedDetail from '../views/ProductUsedDetail.vue'
 import Category from '../views/Category.vue'
 import ProductsByBrand from '../views/ProductsByBrand.vue'
 import ProductsByCategory from '../views/ProductsByCategory.vue'
+import ConfirmAccount from '../views/ConfirmAccount.vue'
 
 Vue.use(VueRouter)
 
@@ -74,7 +75,7 @@ const routes = [{
         component: Category
     },
     {
-        path: '/productosUsados',
+        path: '/compraventa',
         name: 'ProductUsed',
         component: ProductUsed
     },
@@ -92,6 +93,11 @@ const routes = [{
         path: '/productsByCategory',
         name: 'ProductsByCategory',
         component: ProductsByCategory
+    },
+    {
+        path: '/confirmAccount',
+        name: 'ConfirmAccount',
+        component: ConfirmAccount
     }
 
 ]

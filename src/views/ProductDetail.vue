@@ -29,9 +29,11 @@
           <b-card-text bg-variant="dark" align="left">
             {{ $store.state.product.description }}
           </b-card-text>
+          
+          <b-card-text bg-variant="dark" align="left"> Tallas: </b-card-text>
           <div v-for="item in $store.state.sizes" :key="item.size">
             <b-card-text class="font-weight-bold" align="center">
-              {{ item.size }} 
+              {{ item.size }}
             </b-card-text>
           </div>
 
