@@ -3,34 +3,34 @@
     <div class="row pt-5 pb-5">
       <div class="col col-md-3">
         <img
-          src="https://lh3.googleusercontent.com/proxy/20fVz0oMkAMB0RgdFF_CDbDYfOVJn_jvafdWegnY149_TTkmXMV12k6OxcEqdd6fnUQVbdyFUYdQ00fN7qAHNpBCKLIG7Px0YD-1atevDGMYIjw6ZmWPrWA5rY272xbDCcnvuJI"
+          src="https://png.pngtree.com/png-vector/20191023/ourlarge/pngtree-user-vector-icon-with-white-background-png-image_1849343.jpg"
           class="img-thumbnail"
           alt="..."
         />
       </div>
       <div class="col col-md-3"></div>
       <div class="col col-md-6">
-        <div class="card mb-4" align="left">
-          <div class="card-body">
-            <h5 class="card-title">Perfil</h5>
-            <p class="card-text">Nombre: {{ user.data.name }}</p>
-            <p class="card-text">Apellidos: {{ user.data.lastname }}</p>
-            <p class="card-text">Teléfono: {{ user.data.telephone }}</p>
-            <p class="card-text">Correo electrónico: {{ user.data.email }}</p>
-          </div>
-        </div>
+        <b-card class="mb-4" align="left">
+          <b-card-body align="left">
+            <b-card-title>Perfil</b-card-title>
+            <b-card-text>Nombre: {{ user.data.name }}</b-card-text>
+            <b-card-text>Apellidos: {{ user.data.lastname }}</b-card-text>
+            <b-card-text>Teléfono: {{ user.data.telephone }}</b-card-text>
+            <b-card-text>Correo electrónico: {{ user.data.email }}</b-card-text>
+          </b-card-body>
+        </b-card>
 
-        <div class="card mb-4" align="left">
-          <div class="card-body">
-            <h5 class="card-title">Favoritos</h5>
-          </div>
-        </div>
+        <b-card class="mb-4" align="left">
+          <b-card-body align="left">
+            <b-card-title>Favoritos</b-card-title>
+         </b-card-body>
+        </b-card>
 
-        <div class="card mb-4" align="left">
-          <div class="card-body">
-            <h5 class="card-title">Wish List</h5>
-          </div>
-        </div>
+        <b-card class="mb-4" align="left">
+          <b-card-body align="left">
+            <b-card-title>Wish List</b-card-title>
+         </b-card-body>
+        </b-card>
       </div>
     </div>
     <div class="row pt-5 pb-5">

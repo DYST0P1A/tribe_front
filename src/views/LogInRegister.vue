@@ -164,7 +164,8 @@ export default {
         const token = res.data.token;
         const name = res.data.name;
         const email = res.data.email;
-        auth.setLogged(name, email, token);
+        const type = res.data.type;
+        auth.setLogged(name, email, token, type);
         this.$router.go(this.$router.push("/"));
       } catch (error) {
         this.error = true;

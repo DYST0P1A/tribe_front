@@ -1,6 +1,6 @@
 <template>
 <div class="content">
-  <b-row>
+  <b-row class="mt-5">
     <b-col cols="8">
       <b-row>
         <b-card-group>
@@ -47,7 +47,39 @@
       </b-row>
     </b-col>
     <b-col>
-      <CartProduct />
+      <b-row class="pb-3">
+        <form v-on:submit.prevent="search2">
+          <div class="input-group rounded">
+            <input type="search" class="form-control rounded" placeholder="Buscar" aria-label="Search"
+              aria-describedby="search-addon" v-model="querySearch" />
+            <span class="input-group-text border-0" id="search-addon">
+              <i class="fas fa-search" @click.prevent="search2"></i>
+            </span>
+            <b-button v-on:click="clean" class="pl-1">Limpiar</b-button>
+          </div>
+        </form>
+      </b-row>
+      <b-row class="pb-3">
+        <label for="customRange" class="form-label">Precio minimo</label>
+        <b-col class="col-10">
+          <input type="range" class="form-range" min="0" max="1000" step="10" id="customRange" v-model="min">
+        </b-col>
+        <b-col>
+          <b>{{min}}</b>
+        </b-col>
+      </b-row>
+      <b-row class="pb-5">
+        <label for="customRange2" class="form-label">Precio maximo</label>
+        <b-col class="col-10">
+          <input type="range" class="form-range" min=0 max=1000 step=10 id="customRange2" v-model="max">
+        </b-col>
+        <b-col>
+          <b>{{max}}</b>
+        </b-col>  
+      </b-row>
+      <b-row>
+        <CartProduct />
+      </b-row>
     </b-col>
   </b-row>
 </div>
@@ -59,12 +91,34 @@ import CartProduct from "../components/CartProduct.vue";
 
 export default {
   name: "Product",
+   data: () => ({
+     querySearch: "",
+     min: 0,
+     max: 1000
+   }),
   components: {
     CartProduct
   },
   beforeCreate() {
     this.$store.dispatch("fetchProductsData");
   },
+  methods: {
+    clean() {
+      this.$store.dispatch("fetchProductsData");
+      this.min = 0;
+      this.max = 1000;
+      this.querySearch = "";
+    },
+    async search() {
+      const params = {'key1': this.min, 'key2': this.max}
+      await this.$store.dispatch("fetchProductsSearch", this.querySearch);
+      await this.$store.dispatch("fetchProductsSearchPrice", params);
+    },
+    async search2() {
+      const params = {'key1': this.min, 'key2': this.max, 'key3': this.querySearch}
+      await this.$store.dispatch("fetchProductsSearch2", params);
+    }
+  }
 };
 </script>
 
@@ -107,5 +161,9 @@ export default {
   margin-top: 10px;
 }
 
+input[type=range]::-webkit-slider-thumb {
+
+  background: #3e3e3f;
+}
 
 </style>

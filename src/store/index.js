@@ -27,9 +27,7 @@ export default new Vuex.Store({
             state.product = data
         },
         fetchProductsUsed(state, data) {
-            console.log('entra')
             state.productsUsed = data
-            console.log(data)
         },
         fetchProductUsed(state, data) {
             state.images = data.images
@@ -69,6 +67,15 @@ export default new Vuex.Store({
         remove(state, id) {
             let product = state.cart.find(p => p.id === id)
             state.cart.splice(product, 1)
+        },
+        fetchProductsSearchPrice(state, data) {
+            console.log(data)
+            console.log(state.products)
+            const array1 = state.products
+            const array2 = data
+            const intersection = array1.filter(a => array2.some(b => a._id === b._id));
+            state.products = intersection
+            console.log(intersection)
         }
     },
     getters: {
@@ -84,6 +91,44 @@ export default new Vuex.Store({
         fetchProductsData({ commit }) {
             axios.get(url + 'products').then((res) => {
                 commit('fetchProducts', res.data)
+            })
+        },
+        fetchProductsSearch({ commit }, querySearch) {
+            console.log(querySearch)
+            axios.post(url + 'products/search', { "query": querySearch }).then((res) => {
+                commit('fetchProducts', res.data)
+            }).catch(error => {
+                console.log(error.response)
+            })
+        },
+        async fetchProductsSearch2({ commit }, params) {
+            const min = params.key1
+            const max = params.key2
+            const querySearch = params.key3
+            let array1 = []
+            await axios.post(url + 'products/search', { "query": querySearch }).then((res) => {
+                array1 = res.data
+            }).catch(error => {
+                console.log(error.response)
+            })
+            let array2 = []
+            await axios.post(url + 'products/getByPrice', { "minPrice": min, "maxPrice": max }).then((res) => {
+                array2 = res.data
+            }).catch(error => {
+                console.log(error.response)
+            })
+            const intersection = array1.filter(a => array2.some(b => a._id === b._id));
+            commit('fetchProducts', intersection)
+        },
+        fetchProductsSearchPrice({ commit }, params) {
+
+            const min = params.key1
+            const max = params.key2
+            console.log({ min, max })
+            axios.post(url + 'products/getByPrice', { "minPrice": min, "maxPrice": max }).then((res) => {
+                commit('fetchProductsSearchPrice', res.data)
+            }).catch(error => {
+                console.log(error.response)
             })
         },
         fetchProduct({ commit }, id) {

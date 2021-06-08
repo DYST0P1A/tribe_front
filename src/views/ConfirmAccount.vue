@@ -1,7 +1,10 @@
 <template>
   <div>
     <h1>Registro realizado con exito</h1>
-    <h2>Por favor confirma tu cuenta mediante el enlace que se le ha enviado al correo</h2>
+    <h2>
+      Por favor confirma tu cuenta mediante el enlace que se le ha enviado al
+      correo
+    </h2>
   </div>
 </template>
 
@@ -123,5 +126,4 @@ export default {};
   overflow: hidden;
   position: relative;
 }
-
 </style>
