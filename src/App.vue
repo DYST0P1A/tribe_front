@@ -23,11 +23,15 @@
         <router-link to="/marcas">MARCAS</router-link>
         <router-link to="/categorias">CATEGORIAS</router-link>
         <router-link to="/compraventa">COMPRAVENTA</router-link>
-        <router-link v-if="typeLogged" to="/addbrandproduct">ADMIN-ADD</router-link>
+        <router-link v-if="typeLogged" to="/addbrandproduct"
+          >ADMIN-ADD</router-link
+        >
       </div>
       <div class="nav-right">
         <li>
-          <a style="text-decoration:none;" v-if="userLogged">{{ userLogged }}</a>
+          <a style="text-decoration: none" v-if="userLogged">{{
+            userLogged
+          }}</a>
         </li>
         <li>
           <router-link v-if="userLogged" to="/profile"
@@ -60,58 +64,68 @@
     <p>
       <a href="#Up"><i class="fas fa-chevron-up"></i></a>
     </p>
-    <div class="footer block">
-      <div class="footer_menu">
-        <div class="sobre_nosotros">
-          <div class="title">SOBRE NOSOTROS</div>
-          <ul>
-            <li><a href="">¿Quiénes somos?</a></li>
-            <li><a href="">Nuestras ventajas</a></li>
-          </ul>
-        </div>
-        <div class="redes_sociales">
-          <div class="title">REDES SOCIALES</div>
-          <ul>
-            <li>
-              <a href="">
-                <div class="facebook">
-                  <i class="fab fa-facebook-f"></i>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a href="">
-                <div class="twitter"><i class="fab fa-twitter"></i></div>
-              </a>
-            </li>
-            <li>
-              <a href="">
-                <div class="instagram">
-                  <i class="fab fa-instagram"></i>
-                </div>
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div class="ayuda">
-          <div class="title">CONTACTO</div>
-          <ul>
-            <li>trib3.com@gmail.com</li>
-          </ul>
+    <footer>
+      <div class="footer-container">
+        <div class="row">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+            <ul class="about">
+              <span>Sobre nosotros</span>
+              <li>
+                <a href="#">Quiénes somos</a>
+              </li>
+              <li>
+                <a href="#">Nuestras ventajas</a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+            <ul class="social">
+              <span>Redes sociales</span>
+              <li>
+                <a href="#"><i class="fab fa-facebook-f fa-2x"></i></a>
+              </li>
+
+              <li>
+                <a href="#"><i class="fab fa-twitter fa-2x"></i></a>
+              </li>
+
+              <li>
+                <a href="#"><i class="fab fa-instagram fa-2x"></i></a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+            <ul class="contact">
+              <span>Contacto</span>
+              <li>
+                <p>trib3.com@gmail.com</p>
+              </li>
+              <li>
+                <a href="#">Guía de tallas</a>
+              </li>
+            </ul>
+          </div>
+          <div class="rights-container">
+            <ul class="rights">
+              <li>
+                <p>
+                  <a href="#" class="privacity">Política de privacidad</a> ©
+                  2021 TRIBE. Todos los derechos reservados
+                </p>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
-      <div class="copyright">
-        <p>
-          <a href="#">Política de privacidad</a> © 2021 TRIBE. Todos los
-          derechos reservados
-        </p>
-      </div>
-    </div>
+    </footer>
   </div>
 </template>
 
 <script>
 import auth from "@/logic/auth";
+
 export default {
   methods: {
     logout: function () {
@@ -124,11 +138,11 @@ export default {
       return auth.getNameLogged();
     },
     typeLogged() {
-      if(auth.getTypeLogged() === 'admin') {
+      if (auth.getTypeLogged() === "admin") {
         return true;
       }
       return false;
-    }
+    },
   },
 };
 </script>
@@ -384,5 +398,67 @@ p a i {
 
 .searcher ::placeholder {
   color: #fff;
+}
+.footer-container {
+  margin-top: 100px;
+}
+footer {
+  background-color: #33383c;
+}
+
+footer ul li {
+  padding: 5px 0px;
+}
+
+.about span,
+.contact span,
+.social span {
+  color: #f5b652;
+  padding: 20px;
+  margin-bottom: 20px;
+  display: block;
+  text-transform: uppercase;
+  font-size: 18px;
+}
+
+.about li a,
+.contact li p,
+.contact li a,
+.social li a,
+.rights li a,
+.rights li p {
+  color: #fff;
+  text-decoration: none;
+  font-size: 15px;
+  margin: auto;
+}
+
+.about li a:hover,
+.contact li a:hover,
+.rights li a:hover,
+.privacity:hover {
+  text-decoration: underline;
+  color: #fff;
+}
+
+.about,
+.contact,
+.social {
+  list-style: none;
+}
+
+.rights-container {
+  width: 100%;
+}
+.social li {
+  display: inline-block;
+}
+
+.fa-2x {
+  margin: 0 20px;
+}
+
+.fa-2x:hover {
+  color: #f5b652;
 }
 </style>
