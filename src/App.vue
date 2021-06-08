@@ -23,35 +23,12 @@
         <router-link to="/marcas">MARCAS</router-link>
         <router-link to="/categorias">CATEGORIAS</router-link>
         <router-link to="/compraventa">COMPRAVENTA</router-link>
-        <router-link to="/addbrandproduct">ADMIN-ADD</router-link>
+        <router-link v-if="typeLogged" to="/addbrandproduct">ADMIN-ADD</router-link>
       </div>
       <div class="nav-right">
         <li>
-          <form class="searcher">
-            <button class="btn-searcher">
-              <i class="fa fa-search fa-md"></i>
-            </button>
-            <input
-              class="input-searcher"
-              type="search"
-              id="mySearch"
-              name="s"
-              placeholder="Buscar..."
-              size="15"
-            />
-          </form>
+          <a style="text-decoration:none;" v-if="userLogged">{{ userLogged }}</a>
         </li>
-        <li>
-          <a v-if="userLogged">{{ userLogged }}</a>
-        </li>
-        <button
-          v-if="userLogged"
-          class="btn btn-danger"
-          v-on:click="logout"
-          value=""
-        >
-          Cerrar sesión
-        </button>
         <li>
           <router-link v-if="userLogged" to="/profile"
             ><i class="fa fa-user fa-lg"></i
@@ -65,6 +42,14 @@
             ><i class="fa fa-shopping-cart fa-lg"></i
           ></router-link>
         </li>
+        <button
+          v-if="userLogged"
+          class="btn btn-danger"
+          v-on:click="logout"
+          value=""
+        >
+          Cerrar sesión
+        </button>
       </div>
     </div>
 
@@ -138,6 +123,12 @@ export default {
     userLogged() {
       return auth.getNameLogged();
     },
+    typeLogged() {
+      if(auth.getTypeLogged() === 'admin') {
+        return true;
+      }
+      return false;
+    }
   },
 };
 </script>

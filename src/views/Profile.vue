@@ -23,13 +23,13 @@
         <b-card class="mb-4" align="left">
           <b-card-body align="left">
             <b-card-title>Favoritos</b-card-title>
-          </b-card-body>
+         </b-card-body>
         </b-card>
 
         <b-card class="mb-4" align="left">
           <b-card-body align="left">
             <b-card-title>Wish List</b-card-title>
-          </b-card-body>
+         </b-card-body>
         </b-card>
       </div>
     </div>

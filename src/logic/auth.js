@@ -4,11 +4,11 @@ import Cookies from "js-cookie";
 const ENDPOINT_PATH = "https://tribeback.herokuapp.com/api/users";
 
 export default {
-    setLogged(name, email, token) {
+    setLogged(name, email, token, type) {
         Cookies.set("nameLogged", name);
         Cookies.set("emailLogged", email);
         Cookies.set("tokenLogged", token);
-
+        Cookies.set("typeLogged", type);
     },
     getNameLogged() {
         return Cookies.get("nameLogged");
@@ -19,11 +19,15 @@ export default {
     getTokenLogged() {
         return Cookies.get("tokenLogged");
     },
+    getTypeLogged() {
+        return Cookies.get("typeLogged");
+    },
     deleteUserLogged() {
         Cookies.remove('nameLogged');
         Cookies.remove('emailLogged');
         Cookies.remove('tokenLogged');
         Cookies.remove('userLogged');
+        Cookies.remove('typeLogged');
     },
     register(name, lastname, telephone, email, password) {
         return axios.post(ENDPOINT_PATH, {
