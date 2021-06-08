@@ -1,41 +1,49 @@
 <template>
-  <div class="forms">
-    <div class="form-login">
+  <b-row class="pt-4">
+    <b-col>
       <form action class="form-horizontal" @submit.prevent="login">
         <fieldset>
-          <div id="legend">
+          <b-row>
             <legend class="title">Ya tengo cuenta</legend>
-          </div>
+          </b-row>
 
-          <div class="control-group">
+          <b-row>
             <!-- E-mail -->
-            <label class="control-label" for="login-email">E-mail</label>
-            <div class="controls">
-              <input
-                v-model="email"
-                class="form-input"
-                type="email"
-                id="email"
-                required
-                placeholder="Email"
-              />
-            </div>
-          </div>
+            <b-col>
+              <label class="control-label" for="login-email">E-mail</label>
+            </b-col>
+            <b-col>
+              <div class="controls">
+                <input
+                  v-model="email"
+                  class="form-input"
+                  type="email"
+                  id="email"
+                  required
+                  placeholder="Email"
+                />
+              </div>
+            </b-col>
+          </b-row>
 
-          <div class="control-group">
+          <b-row>
             <!-- Password-->
-            <label class="control-label" for="login-password">Contraseña</label>
-            <div class="controls">
-              <input
-                v-model="password"
-                class="form-input"
-                type="password"
-                id="password"
-                placeholder="Contraseña"
-              />
-              <p v-if="error" class="error">{{ errorMsg }}</p>
-            </div>
-          </div>
+            <b-col>
+              <label class="control-label" for="login-password">Contraseña</label>
+            </b-col>
+            <b-col>
+              <div class="controls">
+                <input
+                  v-model="password"
+                  class="form-input"
+                  type="password"
+                  id="password"
+                  placeholder="Contraseña"
+                />
+                <p v-if="error" class="error">{{ errorMsg }}</p>
+              </div>
+            </b-col>
+          </b-row>
 
           <div class="control-group">
             <!-- Button -->
@@ -45,46 +53,59 @@
           </div>
         </fieldset>
       </form>
-    </div>
-
-    <div class="form-register">
+    </b-col>
+    <b-col></b-col>
+    <b-col class="form-register"></b-col>
+    <b-col >
       <form action class="form-horizontal" @submit.prevent="register">
         <fieldset>
-          <div id="legend">
+          <b-row>
             <legend class="title">Crear cuenta</legend>
-          </div>
-          <div class="control-group">
-            <!-- Username -->
-            <label class="control-label" for="name">Nombre</label>
-            <div class="controls">
-              <input
-                v-model="name"
-                class="form-input"
-                type="text"
-                id="name"
-                required
-                placeholder="Nombre"
-              />
-            </div>
-          </div>
-          <div class="control-group">
-            <!-- Username -->
-            <label class="control-label" for="lastname">Apellido</label>
-            <div class="controls">
-              <input
-                v-model="lastname"
-                class="form-input"
-                type="text"
-                id="lastname"
-                required
-                placeholder="Apellidos"
-              />
-            </div>
-          </div>
+          </b-row>
 
-          <div class="control-group">
+          <b-row>
+            <!-- Username -->
+            <b-col>
+              <label class="control-label" for="name">Nombre</label>
+            </b-col>
+            <b-col>
+              <div class="controls">
+                <input
+                  v-model="name"
+                  class="form-input"
+                  type="text"
+                  id="name"
+                  required
+                  placeholder="Nombre"
+                />
+              </div>
+            </b-col>
+          </b-row>
+          <b-row>
+            <!-- Username -->
+            <b-col>
+              <label class="control-label" for="lastname">Apellido</label>
+            </b-col>
+            <b-col>
+              <div class="controls">
+                <input
+                  v-model="lastname"
+                  class="form-input"
+                  type="text"
+                  id="lastname"
+                  required
+                  placeholder="Apellidos"
+                />
+              </div>
+              </b-col>
+          </b-row>
+
+          <b-row>
             <!-- Phone Number -->
-            <label class="control-label" for="phone">Número de teléfono</label>
+            <b-col>
+              <label class="control-label" for="phone">Número de teléfono</label>
+            </b-col>
+            <b-col>
             <div class="controls">
               <input
                 v-model="phone"
@@ -95,11 +116,15 @@
                 placeholder="Telefono"
               />
             </div>
-          </div>
+            </b-col>
+          </b-row>
 
-          <div class="control-group">
+          <b-row>
             <!-- E-mail -->
-            <label class="control-label" for="register-email">E-mail</label>
+            <b-col>
+              <label class="control-label" for="register-email">E-mail</label>
+            </b-col>
+            <b-col>
             <div class="controls">
               <input
                 v-model="emailRegister"
@@ -110,24 +135,29 @@
                 placeholder="Email"
               />
             </div>
-          </div>
+            </b-col>
+          </b-row>
 
-          <div class="control-group">
+          <b-row>
             <!-- Password-->
-            <label class="control-label" for="register-password"
-              >Contraseña</label
-            >
-            <div class="controls">
-              <input
-                v-model="passwordRegister"
-                class="form-input"
-                type="password"
-                id="password"
-                placeholder="Contraseña"
-              />
-              <p v-if="errorReg" class="error">{{ errorMsgReg }}</p>
-            </div>
-          </div>
+            <b-col>
+              <label class="control-label" for="register-password"
+                >Contraseña</label
+              >
+            </b-col>
+            <b-col>
+              <div class="controls">
+                <input
+                  v-model="passwordRegister"
+                  class="form-input"
+                  type="password"
+                  id="password"
+                  placeholder="Contraseña"
+                />
+                <p v-if="errorReg" class="error">{{ errorMsgReg }}</p>
+              </div>
+            </b-col>
+          </b-row>
 
           <div class="control-group">
             <!-- Button -->
@@ -137,8 +167,8 @@
           </div>
         </fieldset>
       </form>
-    </div>
-  </div>
+    </b-col>
+  </b-row>
 </template>
 
 <script>
