@@ -13,10 +13,10 @@ export default {
     getNameLogged() {
         return Cookies.get("nameLogged");
     },
-    getTokenLogged() {
+    getEmailLogged() {
         return Cookies.get("emailLogged");
     },
-    getEmailLogged() {
+    getTokenLogged() {
         return Cookies.get("tokenLogged");
     },
     deleteUserLogged() {
@@ -48,4 +48,20 @@ export default {
             }
         });
     },
+    fecthChangePass(pass, newPass) {
+        const token = 'Bearer ' + this.getTokenLogged()
+        return axios.post(ENDPOINT_PATH + '/me/changepass', {
+            "oldpassword": pass,
+            "password": newPass
+        }, {
+            headers: {
+                'Authorization': token,
+                'Content-Type': 'application/json'
+            }
+        })
+    },
+    infoUser() {
+        const token = 'Bearer ' + this.getTokenLogged()
+        return axios.get(ENDPOINT_PATH + '/me', { headers: { 'Authorization': token } })
+    }
 };

@@ -16,6 +16,7 @@ import Category from '../views/Category.vue'
 import ProductsByBrand from '../views/ProductsByBrand.vue'
 import ProductsByCategory from '../views/ProductsByCategory.vue'
 import ConfirmAccount from '../views/ConfirmAccount.vue'
+import Profile from '../views/Profile.vue'
 
 Vue.use(VueRouter)
 
@@ -98,6 +99,11 @@ const routes = [{
         path: '/confirmAccount',
         name: 'ConfirmAccount',
         component: ConfirmAccount
+    },
+    {
+        path: '/profile',
+        name: 'Profile',
+        component: Profile
     }
 
 ]

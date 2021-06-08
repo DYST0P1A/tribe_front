@@ -53,7 +53,7 @@
           Cerrar sesión
         </button>
         <li>
-          <router-link v-if="userLogged" to="vistaPerfil"
+          <router-link v-if="userLogged" to="/profile"
             ><i class="fa fa-user fa-lg"></i
           ></router-link>
           <router-link v-else to="/loginregister"
@@ -67,7 +67,11 @@
         </li>
       </div>
     </div>
-    <router-view />
+
+    <div class="d-flex align-items-center justify-content-center mb-3">
+      <router-view />
+    </div>
+
     <p>
       <a href="#Up"><i class="fas fa-chevron-up"></i></a>
     </p>
@@ -127,7 +131,7 @@ export default {
   methods: {
     logout: function () {
       auth.deleteUserLogged();
-      window.location.reload();
+      this.$router.go(this.$router.push("/"));
     },
   },
   computed: {
