@@ -1,6 +1,6 @@
 
 <template>
-  <b-container class="ProductDetail">
+  <b-container class="ProductUsedDetail">
     <b-row>
       <b-col></b-col>
       <b-col cols="6">
@@ -20,23 +20,20 @@
           <b-card-text class="font-weight-bold" align="right">
             <b-row class="mt-2">
               <b-col align="left">
-                {{ $store.state.product.name }}
+                {{ $store.state.productUsed.name }}
               </b-col>
-              <b-col align="right"> {{ $store.state.product.price }} € </b-col>
+              <b-col align="right">
+                {{ $store.state.productUsed.price }} €
+              </b-col>
             </b-row>
           </b-card-text>
 
           <b-card-text bg-variant="dark" align="left">
-            {{ $store.state.product.description }}
+            {{ $store.state.productUsed.description }}
           </b-card-text>
-          
-          <b-card-text bg-variant="dark" align="left"> Tallas: </b-card-text>
-          <div v-for="item in $store.state.sizes" :key="item.size">
-            <b-card-text class="font-weight-bold" align="center">
-              {{ item.size }}
-            </b-card-text>
-          </div>
-
+          <b-card-text bg-variant="dark" align="center">
+            Talla: {{ $store.state.productUsed.size }}
+          </b-card-text>
           <div class="controls">
             <b-button class="btn btn-tribe" to="/productos">Volver</b-button>
             <button
@@ -58,10 +55,10 @@
 import store from "../store/index.js";
 
 export default {
-  name: "ProductDetail",
+  name: "ProductUsedDetail",
   components: {},
   created() {
-    store.dispatch("fetchProduct", this.$route.params.id);
+    store.dispatch("fetchProductUsed", this.$route.params.id);
   },
 };
 </script>

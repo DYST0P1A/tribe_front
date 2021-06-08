@@ -10,7 +10,7 @@
               {{ item.price }}€
             </span>
             <div class="controls">
-                <router-link to="/detalleproducto/:id"><button class="btn btn-tribe">Ver</button></router-link>
+                <router-link to="/detalleProducto/:id"><button class="btn btn-tribe">Ver</button></router-link>
                 <button class="btn btn-tribe" @click="$store.dispatch('addToCart', item.id)">Añadir</button>
             </div>
           </div>

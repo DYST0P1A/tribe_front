@@ -10,10 +10,13 @@ import AdminAddBrandProduct from '../views/AdminAddBrandProduct.vue'
 import AddProduct from '../views/AddProduct.vue'
 import AddBrand from '../views/AddBrand.vue'
 import Brand from '../views/Brand.vue'
-import BuyAndSell from '../views/BuyAndSell.vue'
+import ProductUsed from '../views/ProductUsed.vue'
+import ProductUsedDetail from '../views/ProductUsedDetail.vue'
 import Category from '../views/Category.vue'
 import ProductsByBrand from '../views/ProductsByBrand.vue'
 import ProductsByCategory from '../views/ProductsByCategory.vue'
+import ConfirmAccount from '../views/ConfirmAccount.vue'
+import Profile from '../views/Profile.vue'
 
 Vue.use(VueRouter)
 
@@ -43,7 +46,7 @@ const routes = [{
         component: Checkout
     },
     {
-        path: '/detalleproducto/:id',
+        path: '/detalleProducto/:id',
         name: 'ProductDetail',
         component: ProductDetail
     },
@@ -74,8 +77,13 @@ const routes = [{
     },
     {
         path: '/compraventa',
-        name: 'BuyAndSell',
-        component: BuyAndSell
+        name: 'ProductUsed',
+        component: ProductUsed
+    },
+    {
+        path: '/detalleProductoUsado/:id',
+        name: 'ProductUsedDetail',
+        component: ProductUsedDetail
     },
     {
         path: '/productsByBrand',
@@ -86,6 +94,16 @@ const routes = [{
         path: '/productsByCategory',
         name: 'ProductsByCategory',
         component: ProductsByCategory
+    },
+    {
+        path: '/confirmAccount',
+        name: 'ConfirmAccount',
+        component: ConfirmAccount
+    },
+    {
+        path: '/profile',
+        name: 'Profile',
+        component: Profile
     }
 
 ]

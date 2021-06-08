@@ -14,7 +14,7 @@
               class="mb-md-2 card-product"
             >
             <div class="card-content">
-              <b-card-text class="font-weight-bold" align="right">
+              <b-card-text class="font-weight-bold" align="center">
                 {{ item.price }} €
               </b-card-text>
 
@@ -63,7 +63,7 @@ export default {
     CartProduct
   },
   beforeCreate() {
-    this.$store.dispatch("fetchProductByCategory", this.$route.params.category);
+    this.$store.dispatch("fetchProductsByCategory", this.$route.params.category);
   },
 };
 </script>

@@ -42,7 +42,21 @@
           </form>
         </li>
         <li>
-          <router-link to="/loginregister"
+          <a v-if="userLogged">{{ userLogged }}</a>
+        </li>
+        <button
+          v-if="userLogged"
+          class="btn btn-danger"
+          v-on:click="logout"
+          value=""
+        >
+          Cerrar sesión
+        </button>
+        <li>
+          <router-link v-if="userLogged" to="/profile"
+            ><i class="fa fa-user fa-lg"></i
+          ></router-link>
+          <router-link v-else to="/loginregister"
             ><i class="fa fa-user fa-lg"></i
           ></router-link>
         </li>
@@ -53,7 +67,11 @@
         </li>
       </div>
     </div>
-    <router-view />
+
+    <div class="d-flex align-items-center justify-content-center mb-3">
+      <router-view />
+    </div>
+
     <p>
       <a href="#Up"><i class="fas fa-chevron-up"></i></a>
     </p>
@@ -106,6 +124,23 @@
     </div>
   </div>
 </template>
+
+<script>
+import auth from "@/logic/auth";
+export default {
+  methods: {
+    logout: function () {
+      auth.deleteUserLogged();
+      this.$router.go(this.$router.push("/"));
+    },
+  },
+  computed: {
+    userLogged() {
+      return auth.getNameLogged();
+    },
+  },
+};
+</script>
 
 <style>
 html,
