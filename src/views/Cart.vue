@@ -1,17 +1,17 @@
 <template>
   <b-container class="cart">
      <h1>CARRITO</h1>
-          <b-card  class="font-weight-bold">
+          <b-card>
             <div v-for="(item, index) in $store.state.cart" :key="item.id">
               <b-row class="mt-4">
-                <b-col cols="3">
+                <b-col cols="1">
                   <b-button size="sm" variant="outline-danger" @click="$store.commit('remove', item.id)">
                     <b-icon-trash></b-icon-trash>
                   </b-button>
                 </b-col>
-                <b-col cols="3">
+                <b-col cols="5">
                   <b-card-text>
-                    {{ item.name }} x {{ item.amount }}
+                    {{ item.name }} x {{ item.quantity }}
                   </b-card-text>
                 </b-col>
                   <b-col cols="3" class="pr-0">

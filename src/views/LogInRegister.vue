@@ -38,6 +38,7 @@
                   class="form-input"
                   type="password"
                   id="password"
+                  required
                   placeholder="Contraseña"
                 />
                 <p v-if="error" class="error">{{ errorMsg }}</p>
@@ -152,6 +153,7 @@
                   class="form-input"
                   type="password"
                   id="password"
+                  required
                   placeholder="Contraseña"
                 />
                 <p v-if="errorReg" class="error">{{ errorMsgReg }}</p>
@@ -199,7 +201,6 @@ export default {
         this.$router.go(this.$router.push("/"));
       } catch (error) {
         this.error = true;
-        console.log(error);
         this.errorMsg = error.response.data.message;
       }
     },
