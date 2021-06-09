@@ -8,13 +8,18 @@ let url = `https://tribeback.herokuapp.com/api/`;
 export default new Vuex.Store({
     state: {
         products: [''],
+        productsSize: [''],
         productsUsed: [''],
-        cart: [''],
+        cart: [],
         brands: [''],
+        brandsNames: [''],
+        brandsIds: [''],
         categories: [''],
+        categoriesNames: [''],
         product: '',
         images: [''],
-        sizes: ['']
+        sizes: [''],
+        onlySizes: []
 
     },
     mutations: {
@@ -24,6 +29,7 @@ export default new Vuex.Store({
         fetchProduct(state, data) {
             state.images = data.images
             state.sizes = data.sizes
+            state.onlySizes = data.sizes.map(d => d.size);
             state.product = data
         },
         fetchProductsUsed(state, data) {
@@ -39,29 +45,36 @@ export default new Vuex.Store({
         },
         fetchBrands(state, data) {
             state.brands = data
+            state.brandsNames = data.map(d => d.name);
+            state.brandsIds = data.map(d => d._id);
         },
         fetchCategories(state, data) {
             state.categories = data
+            state.categoriesNames = data.map(d => d.name);
         },
         addToCart(state, id) {
-            let product = state.products.find(p => p.id === id)
+            let product = state.products.find(p => p._id === id)
             state.cart.push({
-                id: product.id,
+                operation: "insert",
+                id: product._id,
                 name: product.name,
                 price: product.price,
-                amount: 1
+                sizeSelected: "",
+                emailSeller: "",
+                type: "brand",
+                quantity: 1
             })
         },
         increment(state, id) {
             let product = state.cart.find(p => p.id === id)
-            if (product.amount >= 0) {
-                product.amount++
+            if (product.quantity >= 0) {
+                product.quantity++
             }
         },
         decrement(state, id) {
             let product = state.cart.find(p => p.id === id)
-            if (product.amount > 1) {
-                product.amount--
+            if (product.quantity > 1) {
+                product.quantity--
             }
         },
         remove(state, id) {
@@ -69,22 +82,19 @@ export default new Vuex.Store({
             state.cart.splice(product, 1)
         },
         fetchProductsSearchPrice(state, data) {
-            console.log(data)
-            console.log(state.products)
             const array1 = state.products
             const array2 = data
             const intersection = array1.filter(a => array2.some(b => a._id === b._id));
             state.products = intersection
-            console.log(intersection)
         }
     },
     getters: {
         totalCart(state) {
-            return state.cart.map(p => p.price * p.amount)
+            return state.cart.map(p => p.price * p.quantity)
                 .reduce((previousValue, currentValue) => previousValue + currentValue, 0)
         },
         totalByRow(state) {
-            return state.cart.map(p => p.price * p.amount)
+            return state.cart.map(p => p.price * p.quantity)
         }
     },
     actions: {
@@ -94,7 +104,6 @@ export default new Vuex.Store({
             })
         },
         fetchProductsSearch({ commit }, querySearch) {
-            console.log(querySearch)
             axios.post(url + 'products/search', { "query": querySearch }).then((res) => {
                 commit('fetchProducts', res.data)
             }).catch(error => {
@@ -117,14 +126,21 @@ export default new Vuex.Store({
             }).catch(error => {
                 console.log(error.response)
             })
-            const intersection = array1.filter(a => array2.some(b => a._id === b._id));
+            var intersection = array1.filter(a => array2.some(b => a._id === b._id));
+            let array3 = []
+            if (params.key4 != "none") {
+                await axios.post(url + 'products/getByGender', { "gender": params.key4 }).then((res) => {
+                    array3 = res.data
+                }).catch(error => {
+                    console.log(error.response)
+                })
+                intersection = intersection.filter(a => array3.some(b => a._id === b._id));
+            }
             commit('fetchProducts', intersection)
         },
         fetchProductsSearchPrice({ commit }, params) {
-
             const min = params.key1
             const max = params.key2
-            console.log({ min, max })
             axios.post(url + 'products/getByPrice', { "minPrice": min, "maxPrice": max }).then((res) => {
                 commit('fetchProductsSearchPrice', res.data)
             }).catch(error => {
@@ -154,7 +170,6 @@ export default new Vuex.Store({
         },
         fetchProductsUsedData({ commit }) {
             axios.get(url + 'productsUsed').then((res) => {
-                console.log("dkfdlf")
                 commit('fetchProductsUsed', res.data)
             }).catch(error => {
                 console.log(error.response)
@@ -183,6 +198,16 @@ export default new Vuex.Store({
                 context.commit('increment', id)
             } else {
                 context.commit('addToCart', id)
+            }
+        },
+        decrement(context, id) {
+            if (context.state.cart.length != 0) {
+                let product = context.state.cart.find(p => p.id === id)
+                if (product.quantity == 1) {
+                    context.commit('remove', id)
+                } else if (product.quantity > 1) {
+                    context.commit('decrement', id)
+                }
             }
         }
     },

@@ -1,7 +1,7 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-const ENDPOINT_PATH = "https://tribeback.herokuapp.com/api/users";
+const ENDPOINT_PATH = "https://tribeback.herokuapp.com/api";
 
 export default {
     setLogged(name, email, token, type) {
@@ -43,7 +43,7 @@ export default {
         });
     },
     login(email, password) {
-        return axios.post(ENDPOINT_PATH + "/login", {
+        return axios.post(ENDPOINT_PATH + "/users/login", {
             "email": email,
             "password": password
         }, {
@@ -54,7 +54,7 @@ export default {
     },
     fecthChangePass(pass, newPass) {
         const token = 'Bearer ' + this.getTokenLogged()
-        return axios.post(ENDPOINT_PATH + '/me/changepass', {
+        return axios.post(ENDPOINT_PATH + '/users/me/changepass', {
             "oldpassword": pass,
             "password": newPass
         }, {
@@ -66,6 +66,29 @@ export default {
     },
     infoUser() {
         const token = 'Bearer ' + this.getTokenLogged()
-        return axios.get(ENDPOINT_PATH + '/me', { headers: { 'Authorization': token } })
-    }
+        return axios.get(ENDPOINT_PATH + '/users/me', { headers: { 'Authorization': token } })
+    },
+    addBrand(name, logo, telephone, email) {
+        const token = 'Bearer ' + this.getTokenLogged()
+        return axios.post(ENDPOINT_PATH + '/brands', {
+            "name": name,
+            "logo": logo,
+            "telephone": telephone,
+            "email": email
+        }, {
+            headers: {
+                'Authorization': token,
+                'Content-Type': 'application/json'
+            }
+        })
+    },
+    addProduct(data) {
+        const token = 'Bearer ' + this.getTokenLogged()
+        return axios.post(ENDPOINT_PATH + '/products', data, {
+            headers: {
+                'Authorization': token,
+                'Content-Type': 'application/json'
+            }
+        })
+    },
 };
