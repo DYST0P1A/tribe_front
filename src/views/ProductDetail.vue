@@ -17,31 +17,40 @@
             </div>
           </b-carousel>
 
-          <b-card-text class="font-weight-bold" align="right">
+          <b-card-text >
             <b-row class="mt-2">
-              <b-col align="left">
+              <b-col class="col-10" align="left">
                 {{ $store.state.product.name }}
               </b-col>
-              <b-col align="right"> {{ $store.state.product.price }} € </b-col>
+              <b-col  class="col-2" align="right"> {{ $store.state.product.price }} € </b-col>
             </b-row>
           </b-card-text>
 
           <b-card-text bg-variant="dark" align="left">
             {{ $store.state.product.description }}
           </b-card-text>
-          
-          <b-card-text bg-variant="dark" align="left"> Tallas: </b-card-text>
-          <div v-for="item in $store.state.sizes" :key="item.size">
-            <b-card-text class="font-weight-bold" align="center">
-              {{ item.size }}
-            </b-card-text>
-          </div>
 
+          <b-row class="pb-4">
+            <b-col>
+              <label class="control-label" for="brandname">Tallas</label>
+            </b-col>
+            <b-col align="left">
+              <b-form-select v-model="sizeSelected" :options="$store.state.onlySizes">
+                <template #first>
+                  <b-form-select-option :value="null" disabled
+                    >-- Escoge talla --</b-form-select-option
+                  >
+                </template>
+              </b-form-select>
+            </b-col>
+          </b-row>
+          <p v-if="error" class="error">Escoge la talla</p>
+          <p v-if="success" class="error">¡Añadido al carrito!</p>
           <div class="controls">
             <b-button class="btn btn-tribe" to="/productos">Volver</b-button>
             <button
               class="btn btn-tribe"
-              @click="$store.dispatch('addToCart', item.id)"
+              @click="addToCart()"
             >
               Añadir
             </button>
@@ -60,9 +69,26 @@ import store from "../store/index.js";
 export default {
   name: "ProductDetail",
   components: {},
+  data:() => ({
+    sizeSelected: "",
+    error: false,
+    success: false
+  }),
   created() {
     store.dispatch("fetchProduct", this.$route.params.id);
   },
+  methods: {
+    addToCart() {
+      if(this.sizeSelected === "") {
+        this.error = true
+      }
+      else {
+        this.error = false
+        this.$store.dispatch('addToCart', store.state.product._id)
+        this.success=true
+      }
+    }
+  }
 };
 </script>
 
