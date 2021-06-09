@@ -73,4 +73,8 @@ export default {
   margin: auto;
 }
 
+.cart h1{
+  margin: 30px;
+}
+
 </style>
