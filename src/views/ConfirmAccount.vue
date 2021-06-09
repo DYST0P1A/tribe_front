@@ -1,8 +1,8 @@
 <template>
   <div>
-    <h1>Registro realizado con exito</h1>
+    <h1>Registro realizado con éxito</h1>
     <h2>
-      Por favor confirma tu cuenta mediante el enlace que se le ha enviado al
+      Por favor confirme su cuenta mediante el enlace que se le ha enviado al
       correo
     </h2>
   </div>
