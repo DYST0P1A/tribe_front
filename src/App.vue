@@ -6,28 +6,39 @@
       integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
       crossorigin="anonymous"
     />
-
+    <script type="application/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    
     <a name="Up" class="arrow-up"></a>
 
-    <div id="nav">
-      <div class="nav-left">
-        <img
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/"><img
           src="logo-tribe.png"
           alt="TRIBE - Streetwear Clothes"
           title="TRIBE - Streetwear Clothes"
-        />
-      </div>
-      <div class="nav-center">
-        <router-link to="/">HOME</router-link>
-        <router-link to="/productos">PRODUCTOS</router-link>
-        <router-link to="/marcas">MARCAS</router-link>
-        <router-link to="/categorias">CATEGORIAS</router-link>
-        <router-link to="/compraventa">COMPRAVENTA</router-link>
-        <router-link v-if="typeLogged" to="/addbrandproduct"
-          >ADMIN-ADD</router-link
-        >
-      </div>
-      <div class="nav-right">
+        /></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link"><router-link to="/">HOME</router-link></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link"><router-link to="/productos">PRODUCTOS</router-link></a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link"><router-link to="/marcas">MARCAS</router-link></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link"><router-link to="/categorias">CATEGORIAS</router-link></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link"><router-link to="/compraventa">COMPRAVENTA</router-link></a>
+        </li>
+      </ul>
+      <div class="d-flex icons">
         <li>
           <a style="text-decoration: none" v-if="userLogged">{{
             userLogged
@@ -56,6 +67,8 @@
         </button>
       </div>
     </div>
+  </div>
+</nav>
 
     <div class="d-flex align-items-center justify-content-center mb-3">
       <router-view />
@@ -249,12 +262,14 @@ nav,
 section {
   display: block;
 }
+
 body {
   line-height: 1;
 }
 
 ol,
-ul {
+ul,
+li{
   list-style: none;
 }
 blockquote,
@@ -287,62 +302,36 @@ body {
   color: #2c3e50;
 }
 
-#nav {
-  width: 100%;
-  height: 65px;
-  background: black;
-  padding: 20px 2%;
+.navbar{
+  padding: 0 4%;
 }
 
-#nav a {
-  font-weight: bold;
+.nav-link a{
   color: white;
-  padding: 10px;
   text-decoration: none;
+  margin-left: 15px;
 }
 
-#nav a:hover {
+.nav-link a:hover{
+  color: white;
   text-decoration: underline;
 }
 
-.nav-left {
-  float: left;
-  position: absolute;
-  top: 10px;
-  left: 20px;
-}
-
-#nav .nav-center {
-  width: 65%;
-  height: 60px;
-  margin-left: 190px;
-}
-
-#nav .nav-center a {
-  padding: 0 25px;
-  float: left;
-}
-
-.nav-right {
-  float: right;
-  position: absolute;
-  right: 2%;
-  top: 2.2%;
-  width: 25%;
-}
-
-.nav-right li {
-  display: inline-block;
-  vertical-align: middle;
-  padding: 0 10px;
-}
-
-#nav a.router-link-exact-active {
+.nav-link a.router-link-exact-active {
   color: #f5b652;
 }
 
-#nav a.router-link-exact-active:hover {
+.nav-link a.router-link-exact-active:hover {
   text-decoration: none;
+}
+
+.d-flex li i{
+  color: white;
+  padding: 15px;
+}
+
+.d-flex li a.router-link-exact-active i{
+  color: #f5b652;
 }
 
 .controls .btn-tribe {
@@ -379,26 +368,6 @@ p a i {
   text-decoration: none;
 }
 
-.btn-searcher {
-  color: #f5b652;
-  background: black;
-  border: 0px;
-}
-
-.box input {
-  color: #f5b652;
-  border: 0px;
-}
-
-.input-searcher {
-  background: black;
-  border: 0px;
-  color: #f5b652;
-}
-
-.searcher ::placeholder {
-  color: #fff;
-}
 .footer-container {
   margin-top: 100px;
 }
@@ -460,5 +429,12 @@ footer ul li {
 
 .fa-2x:hover {
   color: #f5b652;
+}
+
+@media only screen and (max-width: 992px) {
+  
+  .icons{
+    margin-left: 45%;
+  }
 }
 </style>
