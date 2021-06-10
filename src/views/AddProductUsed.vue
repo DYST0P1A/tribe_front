@@ -1,5 +1,5 @@
 <template>
-  <form action class="col-4" @submit.prevent="addBrand">
+  <form action class="col-4" @submit.prevent="addProductUsed">
     <b-row class="pb-4">
       <legend class="title">Añadir producto</legend>
     </b-row>
@@ -72,44 +72,18 @@
 
     <b-row class="pb-4">
       <b-col>
-        <label class="control-label" for="brandname">Tallas</label>
+        <label class="control-label" for="brandname">Talla</label>
       </b-col>
       <b-col align="left">
-        <b-form-group v-for="(size, index) in this.sizes" :key="index">
-          <b-row class="pb-2">
-            <b-col>
-              <input
-                type="text"
-                id="brandname"
-                name="brandname"
-                placeholder=""
-                class="input-xlarge"
-                required
-                v-model="size.size"
-              />
-            </b-col>
-            <b-col>
-              <b-button
-                class="btn-dark"
-                size="sm"
-                @click="removeSize(index)"
-                v-show="index || (!index && sizes.length > 1)"
-              >
-                -
-              </b-button>
-            </b-col>
-            <b-col>
-              <b-button
-                class="btn-primary"
-                size="sm"
-                @click="addSize(index)"
-                v-show="index == sizes.length - 1"
-              >
-                +
-              </b-button>
-            </b-col>
-          </b-row>
-        </b-form-group>
+        <input
+          v-model="size"
+          type="text"
+          id="brandname"
+          name="brandname"
+          placeholder=""
+          class="input-xlarge"
+          required
+        />
       </b-col>
     </b-row>
 
@@ -243,6 +217,7 @@
 <script>
 import auth from "@/logic/auth";
 export default {
+  name: "AddProductUsed",
   data: () => ({
     name: "",
     description: "",
@@ -254,11 +229,7 @@ export default {
     options: [],
     optionsBrands: [],
     gender: null,
-    sizes: [
-      {
-        size: "",
-      },
-    ],
+    size: "",
     images: [
       {
         image: "",
@@ -288,11 +259,8 @@ export default {
     removeImage(index) {
       this.images.splice(index, 1);
     },
-    async addBrand() {
+    async addProductUsed() {
       try {
-        const brand_id = await this.$store.state.brands.find(
-          (element) => element.name == this.brand
-        );
         var v = ["Men", "Women", "Unisex"];
         var gender = v[this.gender - 1];
         const data = {
@@ -300,15 +268,16 @@ export default {
           description: this.description,
           price: this.price,
           category: this.category,
-          sizes: this.sizes,
+          size: this.size,
+          nameSeller: auth.getNameLogged(),
+          emailSeller: auth.getEmailLogged(),
           images: this.images,
-          brand_id: brand_id._id,
           brand_name: this.brand,
           gender: gender,
           color: this.color,
         };
-        await auth.addProduct(data);
-        this.$router.push("/addbrandproduct");
+        await auth.addProductUsed(data);
+        this.$router.push("/compraventa");
       } catch (error) {
         this.error = true;
       }

@@ -91,4 +91,32 @@ export default {
             }
         })
     },
+    addProductUsed(data) {
+        const token = 'Bearer ' + this.getTokenLogged()
+        return axios.post(ENDPOINT_PATH + '/productsUsed', data, {
+            headers: {
+                'Authorization': token,
+                'Content-Type': 'application/json'
+            }
+        })
+    },
+    async operationCart(data, operation) {
+        const res = await axios.post(ENDPOINT_PATH + '/brands/searchById', { "id": data.key3 })
+        console.log(res)
+        const token = 'Bearer ' + this.getTokenLogged()
+        const msg = {
+            "operation": operation,
+            "id_item": data.key1,
+            "sizeSelected": data.key2,
+            "quantity": 1,
+            "type": "brand",
+            "emailSeller": res.data.email
+        }
+        return axios.post(ENDPOINT_PATH + '/users/me/cart', msg, {
+            headers: {
+                'Authorization': token,
+                'Content-Type': 'application/json'
+            }
+        })
+    },
 };

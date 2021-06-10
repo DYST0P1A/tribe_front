@@ -34,6 +34,9 @@
 <script>
 export default {
   name: "CartHome",
+  beforeCreate() {
+    this.$store.dispatch("updateCart");
+  },
 };
 </script>
 

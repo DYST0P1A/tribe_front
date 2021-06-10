@@ -17,6 +17,7 @@ import ProductsByBrand from '../views/ProductsByBrand.vue'
 import ProductsByCategory from '../views/ProductsByCategory.vue'
 import ConfirmAccount from '../views/ConfirmAccount.vue'
 import Profile from '../views/Profile.vue'
+import AddProductUsed from '../views/AddProductUsed.vue'
 
 Vue.use(VueRouter)
 
@@ -104,6 +105,11 @@ const routes = [{
         path: '/profile',
         name: 'Profile',
         component: Profile
+    },
+    {
+        path: '/addproductused',
+        name: 'AddProductUsed',
+        component: AddProductUsed
     }
 
 ]

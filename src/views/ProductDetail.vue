@@ -65,7 +65,7 @@
 
 <script>
 import store from "../store/index.js";
-
+import auth from "@/logic/auth";
 export default {
   name: "ProductDetail",
   components: {},
@@ -84,7 +84,9 @@ export default {
       }
       else {
         this.error = false
-        this.$store.dispatch('addToCart', store.state.product._id)
+        const data = {"key1": store.state.product._id, "key2": this.sizeSelected, "key3": store.state.product.brand_id}
+        this.$store.dispatch('addToCart', data)
+        auth.operationCart(data, "insert")
         this.success=true
       }
     }

@@ -26,6 +26,9 @@
         <router-link v-if="typeLogged" to="/addbrandproduct"
           >ADMIN-ADD</router-link
         >
+        <router-link v-if="typeLogged2" to="/addproductused"
+          >VENDER PRODUCTO</router-link
+        >
       </div>
       <div class="nav-right">
         <li>
@@ -139,6 +142,12 @@ export default {
     },
     typeLogged() {
       if (auth.getTypeLogged() === "admin") {
+        return true;
+      }
+      return false;
+    },
+    typeLogged2() {
+      if (auth.getTypeLogged() === "client") {
         return true;
       }
       return false;
@@ -349,7 +358,6 @@ body {
   background-color: #f5b652;
   border-color: #f5b652;
   color: white;
-  margin: 5px 10px;
 }
 
 .controls .btn-tribe:hover {

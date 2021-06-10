@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+import auth from "@/logic/auth";
 
 Vue.use(Vuex)
 let url = `https://tribeback.herokuapp.com/api/`;
@@ -52,27 +53,28 @@ export default new Vuex.Store({
             state.categories = data
             state.categoriesNames = data.map(d => d.name);
         },
-        addToCart(state, id) {
-            let product = state.products.find(p => p._id === id)
+        addToCart(state, data) {
+            let product = state.products.find(p => p._id === data.key1)
             state.cart.push({
                 operation: "insert",
-                id: product._id,
+                id_item: product._id,
                 name: product.name,
                 price: product.price,
-                sizeSelected: "",
+                sizeSelected: data.key2,
                 emailSeller: "",
                 type: "brand",
                 quantity: 1
             })
+
         },
-        increment(state, id) {
-            let product = state.cart.find(p => p.id === id)
+        increment(state, data) {
+            let product = state.cart.find(p => p.id === data.key)
             if (product.quantity >= 0) {
                 product.quantity++
             }
         },
-        decrement(state, id) {
-            let product = state.cart.find(p => p.id === id)
+        decrement(state, data) {
+            let product = state.cart.find(p => p.id === data.id)
             if (product.quantity > 1) {
                 product.quantity--
             }
@@ -138,6 +140,34 @@ export default new Vuex.Store({
             }
             commit('fetchProducts', intersection)
         },
+        async fetchProductsUsedSearch({ commit }, params) {
+            const min = params.key1
+            const max = params.key2
+            const querySearch = params.key3
+            let array1 = []
+            await axios.post(url + 'productsUsed/search', { "query": querySearch }).then((res) => {
+                array1 = res.data
+            }).catch(error => {
+                console.log(error.response)
+            })
+            let array2 = []
+            await axios.post(url + 'productsUsed/getByPrice', { "minPrice": min, "maxPrice": max }).then((res) => {
+                array2 = res.data
+            }).catch(error => {
+                console.log(error.response)
+            })
+            var intersection = array1.filter(a => array2.some(b => a._id === b._id));
+            let array3 = []
+            if (params.key4 != "none") {
+                await axios.post(url + 'productsUsed/getByGender', { "gender": params.key4 }).then((res) => {
+                    array3 = res.data
+                }).catch(error => {
+                    console.log(error.response)
+                })
+                intersection = intersection.filter(a => array3.some(b => a._id === b._id));
+            }
+            commit('fetchProductsUsed', intersection)
+        },
         fetchProductsSearchPrice({ commit }, params) {
             const min = params.key1
             const max = params.key2
@@ -192,12 +222,13 @@ export default new Vuex.Store({
                 commit('fetchCategories', res.data)
             })
         },
-        addToCart(context, id) {
-            let product = context.state.cart.find(p => p.id === id)
+        addToCart(context, data) {
+            let product = context.state.cart.find(p => p.id === data.key1)
             if (product) {
-                context.commit('increment', id)
+                context.commit('increment', data)
+                axios.post(url + 'users/me/cart')
             } else {
-                context.commit('addToCart', id)
+                context.commit('addToCart', data)
             }
         },
         decrement(context, id) {
@@ -209,6 +240,25 @@ export default new Vuex.Store({
                     context.commit('decrement', id)
                 }
             }
+        },
+        updateCart({ commit }) {
+            const token = 'Bearer ' + auth.getTokenLogged()
+            axios.get(url + '/users/me/cart', {
+                headers: {
+                    'Authorization': token
+                }
+            }).then((res) => {
+                commit('fetchCart', res.data)
+            }).catch(error => {
+                console.log(error.response)
+            })
+        },
+        searchBrand({ commit }, query) {
+            axios.post(url + 'brands/search', { "query": query }, { headers: { 'Content-Type': 'application/json' } }).then((res) => {
+                commit('fetchBrands', res.data)
+            }).catch(error => {
+                console.log(error.response)
+            })
         }
     },
     modules: {

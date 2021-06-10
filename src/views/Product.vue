@@ -6,7 +6,7 @@
           <b-card-group>
             <b-col
               cols="4"
-              v-for="item in $store.state.products"
+              v-for="item in $store.state.products.slice(init, end)"
               :key="item._id"
             >
               <b-card
@@ -16,28 +16,47 @@
                 :img-src="item.images[0].image"
                 class="mb-md-2 card-product"
               >
-                  <b-row>
-                    <b-col>
+                <b-row>
+                  <b-col>
                     <b-card-text align="center">
-                    {{ item.price }} €
+                      {{ item.price }} €
                     </b-card-text>
-                    </b-col>
-                  </b-row>
-                  <b-row>
-                    <b-col>
-                      <div class="controls">
-                    <router-link
-                      :to="{ name: 'ProductDetail', params: { id: item._id } }"
-                    >
-                      <b-button class="mr-3 btn-tribe">Ver</b-button>
-                    </router-link>
-                  </div>
-                    </b-col>
-                  </b-row>
-     
+                  </b-col>
+                </b-row>
+                <b-row>
+                  <b-col>
+                    <div class="controls">
+                      <router-link
+                        :to="{
+                          name: 'ProductDetail',
+                          params: { id: item._id },
+                        }"
+                      >
+                        <b-button class="mr-3 btn-tribe">Ver</b-button>
+                        
+                      </router-link>
+                    </div>
+                  </b-col>
+                </b-row>
               </b-card>
             </b-col>
           </b-card-group>
+        </b-row>
+        <b-row class="pt-4">
+          
+          <b-col>
+            <div class="controls">
+              <b-button href="#Up" class="mr-3 btn-tribe" @click="prev">Anterior</b-button>
+            </div>
+          </b-col>
+          <b-col>
+            <label>{{numberPage}}</label>
+          </b-col>
+          <b-col>
+            <div class="controls">
+            <b-button href="#Up" class="mr-3 btn-tribe" @click="next">Siguiente</b-button>
+            </div>
+          </b-col>
         </b-row>
       </b-col>
       <b-col>
@@ -53,9 +72,6 @@
                   aria-describedby="search-addon"
                   v-model="querySearch"
                 />
-                <span class="input-group-text border-0" id="search-addon">
-                  <i class="fas fa-search" @click.prevent="search2"></i>
-                </span>
               </div>
             </form>
           </b-row>
@@ -66,7 +82,7 @@
                 type="range"
                 class="form-range"
                 min="0"
-                max="1000"
+                max="10000"
                 step="10"
                 id="customRange"
                 v-model="min"
@@ -83,7 +99,7 @@
                 type="range"
                 class="form-range"
                 min="0"
-                max="1000"
+                max="10000"
                 step="10"
                 id="customRange2"
                 v-model="max"
@@ -136,22 +152,19 @@
                 >
               </div>
             </b-col>
-            <b-col>
-              <div class="form-check form-group">
-                <input
-                  v-model="selected"
-                  class="form-check-input"
-                  type="radio"
-                  :value="4"
-                  id="scheduleCheck"
-                />
-                <label class="form-check-label" for="scheduleCheck">Bebé</label>
-              </div>
-            </b-col>
           </b-row>
           <b-row>
             <b-col>
-              <b-button v-on:click="clean">Limpiar</b-button>
+              <div class="controls">
+                <b-button v-on:click="clean">Limpiar</b-button>
+              </div>
+            </b-col>
+            <b-col>
+              <div class="controls">
+                <b-button class="mr-3 btn-tribe input-group-text border-0" id="search-addon">
+                    <i class="fas fa-search" @click.prevent="search2"></i>
+                </b-button>
+              </div>
             </b-col>
           </b-row>
         </b-card>
@@ -165,32 +178,37 @@
 
 <script>
 import CartProduct from "../components/CartProduct.vue";
-
 export default {
   name: "Product",
   data: () => ({
     querySearch: "",
     min: 0,
-    max: 1000,
+    max: 10000,
     selected: "none",
+    init: 0,
+    end: 9,
+    numberElements: 9,
+    numberPage : 1
   }),
   components: {
     CartProduct,
   },
-  beforeCreate() {
-    this.$store.dispatch("fetchProductsData");
+  async beforeCreate() {
+    await this.$store.dispatch("fetchProductsData");
   },
   methods: {
     clean() {
       this.$store.dispatch("fetchProductsData");
       this.min = 0;
-      this.max = 1000;
+      this.max = 10000;
       this.querySearch = "";
       this.selected = "none";
+      this.init = 0;
+      this.end = this.numberElements;
     },
     async search2() {
       if (this.selected != "none") {
-        var v = ["Man", "Women", "Unisex", "Baby"];
+        var v = ["Men", "Women", "Unisex"];
         this.selected = v[this.selected - 1];
       }
       const params = {
@@ -200,12 +218,32 @@ export default {
         key4: this.selected,
       };
       await this.$store.dispatch("fetchProductsSearch2", params);
+      this.init = 0
+      this.end = this.numberElements
+      this.numberPage = 1
     },
     addToCart(id) {
       this.$store.dispatch("addToCart", id);
     },
     decrement(id) {
       this.$store.dispatch("decrement", id);
+    },
+    next() {
+      if (
+        this.init + this.numberElements <=
+        this.$store.state.products.length
+      ) {
+        this.init = this.init + this.numberElements;
+        this.end = this.end + this.numberElements;
+        this.numberPage = this.end/this.numberElements
+      }
+    },
+    prev() {
+      if (this.init - this.numberElements >= 0) {
+        this.init = this.init - this.numberElements;
+        this.end = this.end - this.numberElements;
+        this.numberPage = this.end/this.numberElements
+      }
     },
   },
 };
@@ -252,5 +290,11 @@ export default {
 
 input[type="range"]::-webkit-slider-thumb {
   background: #3e3e3f;
+}
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:visited {
+  background-color: #f5b652 !important;
 }
 </style>
