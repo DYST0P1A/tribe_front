@@ -35,9 +35,9 @@
             Talla: {{ $store.state.productUsed.size }}
           </b-card-text>
           <div class="controls">
-            <b-button class="btn btn-tribe" to="/productos">Volver</b-button>
+            <b-button class="btn btn-tribe m-5" to="/compraventa">Volver</b-button>
             <button
-              class="btn btn-tribe"
+              class="btn btn-tribe m-5"
               @click="$store.dispatch('addToCart', item.id)"
             >
               Añadir

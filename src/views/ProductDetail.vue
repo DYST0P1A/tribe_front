@@ -47,9 +47,9 @@
           <p v-if="error" class="error">Escoge la talla</p>
           <p v-if="success" class="error">¡Añadido al carrito!</p>
           <div class="controls">
-            <b-button class="btn btn-tribe" to="/productos">Volver</b-button>
+            <b-button class="btn btn-tribe m-5" to="/productos">Volver</b-button>
             <button
-              class="btn btn-tribe"
+              class="btn btn-tribe m-5"
               @click="addToCart()"
             >
               Añadir

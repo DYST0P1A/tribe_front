@@ -1,67 +1,54 @@
 <template>
-<div class="content">
-  <b-row>
-    <b-col cols="8">
-      <b-row>
-        <b-card-group>
-          <b-col cols="4" v-for="item in $store.state.products" :key="item._id">
-            
-            <b-card
-              bg-variant="light"
-              border-variant="dark"
-              :header="item.name"
-              :img-src="item.images[0].image"
-              class="mb-md-2 card-product"
+  <div class="content">
+    <b-row>
+      <b-col cols="8">
+        <b-row>
+          <b-card-group>
+            <b-col
+              cols="4"
+              v-for="item in $store.state.products"
+              :key="item._id"
             >
-            <div class="card-content">
-              <b-card-text class="font-weight-bold" align="center">
-                {{ item.price }} €
-              </b-card-text>
-
-              <div class="controls">
-                <router-link
-                  :to="{ name: 'ProductDetail', params: { id: item._id } }"
-                >
-                  <b-button class="mr-3 btn-tribe">Ver</b-button>
-                </router-link>
-
-                
-                  <b-button
-                    class="btn-tribe"
-                    
-                    @click="$store.dispatch('addToCart', item.id)"
-                    >Añadir</b-button
-                  >
-                
-                  <b-button
-                    class="ml-2"
-                    variant="danger"
-                    @click="$store.dispatch('decrement', item.id)"
-                    >-</b-button
-                  >
-              </div>
-            </div>
-            </b-card>
-          </b-col>
-        </b-card-group>
-      </b-row>
-    </b-col>
-    <b-col>
-      <CartProduct />
-    </b-col>
-  </b-row>
-</div>
-  
+              <b-card
+                bg-variant="light"
+                border-variant="dark"
+                :header="item.name"
+                :img-src="item.images[0].image"
+                class="mb-md-2 card-product"
+              >
+                <b-row>
+                  <b-col>
+                    <b-card-text align="center">
+                      {{ item.price }} €
+                    </b-card-text>
+                  </b-col>
+                </b-row>
+                <b-row>
+                  <b-col>
+                    <div class="controls">
+                      <router-link
+                        :to="{
+                          name: 'ProductDetail',
+                          params: { id: item._id },
+                        }"
+                      >
+                        <b-button class="mr-3 btn-tribe">Ver</b-button>
+                      </router-link>
+                    </div>
+                  </b-col>
+                </b-row>
+              </b-card>
+            </b-col>
+          </b-card-group>
+        </b-row>
+      </b-col>
+    </b-row>
+  </div>
 </template>
 
 <script>
-import CartProduct from "../components/CartProduct.vue";
-
 export default {
   name: "ProductsByBrand",
-  components: {
-    CartProduct
-  },
   beforeCreate() {
     this.$store.dispatch("fetchProductsByBrand", this.$route.params.name);
   },
@@ -84,28 +71,26 @@ export default {
   height: 460px;
   margin: 20px 40px 20px 25px;
   display: inline-block;
-  box-shadow: #a09f9f 2px 3px 5px 1px ;
+  box-shadow: #a09f9f 2px 3px 5px 1px;
   vertical-align: middle;
 }
 
-.card-content{
+.card-content {
   position: absolute;
   bottom: 0px;
 }
 
-.product-name{
+.product-name {
   font-size: 15px;
   color: black;
   text-decoration: none;
 }
 
-.product-price{
+.product-price {
   font-size: 20px;
 }
 
-.btn-product{
+.btn-product {
   margin-top: 10px;
 }
-
-
 </style>
