@@ -336,15 +336,33 @@ body {
 
 .controls .btn-tribe {
   background-color: #f5b652;
-  border-color: #f5b652;
+  border: 1px solid #f5b652;
   color: white;
-  margin: 5px 10px;
 }
 
-.controls .btn-tribe:hover {
+.controls .btn-tribe-full {
+  background-color: #f5b652;
+  border: 1px solid #f5b652;
+  color: white;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+.btn-tribe-margin{
+  background-color: #f5b652;
+  border: 1px solid #f5b652;
+  color: white;
+  margin: 5px;
+}
+
+.controls .btn-tribe:hover, .btn-tribe-margin:hover {
   color: black;
   background: #db9f3f;
+  border: 1px solid #f5b652;
 }
+
 
 p a {
   color: white;

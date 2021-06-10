@@ -10,8 +10,6 @@
             :key="item._id"
           >
             <b-card
-              bg-variant="light"
-              border-variant="dark"
               :header="item.name"
               :img-src="item.images[0].image"
               class="mb-md-2  card-producto"

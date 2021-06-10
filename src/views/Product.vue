@@ -10,8 +10,6 @@
               :key="item._id"
             >
               <b-card
-                bg-variant="light"
-                border-variant="dark"
                 :header="item.name"
                 :img-src="item.images[0].image"
                 class="mb-md-2 card-product"
@@ -29,7 +27,7 @@
                     <router-link
                       :to="{ name: 'ProductDetail', params: { id: item._id } }"
                     >
-                      <b-button class="mr-3 btn-tribe">Ver</b-button>
+                      <b-button class="mr-3 btn-tribe-full">Ver</b-button>
                     </router-link>
                   </div>
                     </b-col>
@@ -60,7 +58,7 @@
             </form>
           </b-row>
           <b-row class="pb-3">
-            <label for="customRange" class="form-label">Precio minimo</label>
+            <label for="customRange" class="form-label">Precio mínimo</label>
             <b-col class="col-9">
               <input
                 type="range"
@@ -77,7 +75,7 @@
             </b-col>
           </b-row>
           <b-row class="pb-3">
-            <label for="customRange2" class="form-label">Precio maximo</label>
+            <label for="customRange2" class="form-label">Precio máximo</label>
             <b-col class="col-9">
               <input
                 type="range"
@@ -150,8 +148,8 @@
             </b-col>
           </b-row>
           <b-row>
-            <b-col>
-              <b-button v-on:click="clean">Limpiar</b-button>
+            <b-col class="controls">
+              <b-button v-on:click="clean" class="btn-tribe">Limpiar</b-button>
             </b-col>
           </b-row>
         </b-card>
@@ -222,7 +220,6 @@ export default {
 
 .card-product {
   position: relative;
-  border: 1px solid black;
   width: 225px;
   height: 460px;
   margin: 20px 40px 20px 25px;
@@ -251,6 +248,6 @@ export default {
 }
 
 input[type="range"]::-webkit-slider-thumb {
-  background: #3e3e3f;
+  background: #f5b652;
 }
 </style>
