@@ -65,18 +65,12 @@ export default new Vuex.Store({
             state.onlySizes = data.sizes.map(d => d.size);
             state.product = data
             var fav = state.userFavs.find(p => p._id === data._id)
-            console.log(data._id)
-            console.log(state.userFavs)
-            console.log(fav)
             if (fav) {
                 state.product.fav = true;
             } else {
                 state.product.fav = false;
             }
             var wish = state.userWishs.find(p => p._id === data._id)
-            console.log(data._id)
-            console.log(state.userFavs)
-            console.log(fav)
             if (wish) {
                 state.product.wish = true;
             } else {

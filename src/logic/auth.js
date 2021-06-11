@@ -31,7 +31,7 @@ export default {
         Cookies.remove('typeLogged');
     },
     register(name, lastname, telephone, email, password) {
-        return axios.post(ENDPOINT_PATH, {
+        return axios.post(ENDPOINT_PATH + "/users", {
             "name": name,
             "lastname": lastname,
             "telephone": telephone,

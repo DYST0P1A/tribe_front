@@ -103,8 +103,8 @@ export default {
     wishValue: false
   }),
   async created() {
-    await this.$store.dispatch("fetchProductsData");
     await store.dispatch("fetchProduct", this.$route.params.id);
+    await this.$store.dispatch("fetchProductsData");
     this.favValue = await this.$store.state.product.fav;
     this.wishValue = await this.$store.state.product.wish;
 
