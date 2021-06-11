@@ -41,6 +41,7 @@
                       </router-link>
                     </div>
                   </b-col>
+                
                 </b-row>
               </b-card>
             </b-col>
@@ -49,7 +50,9 @@
         <b-row class="pt-4">
           <b-col>
             <div class="controls">
-              <b-button href="#Up" class="mr-3 btn-tribe" @click="prev">Anterior</b-button>
+              <b-button href="#Up" class="mr-3 btn-tribe" @click="prev"
+                >Anterior</b-button
+              >
             </div>
           </b-col>
           <b-col>
@@ -183,7 +186,6 @@
 
 <script>
 import store from "../store/index.js";
-
 export default {
   name: "ProducUsed",
   data: () => ({
@@ -196,8 +198,8 @@ export default {
     numberElements: 9,
     numberPage: 1,
   }),
-  beforeCreate() {
-    store.dispatch("fetchProductsUsedData");
+  async beforeCreate() {
+    await store.dispatch("fetchProductsUsedData");
   },
   methods: {
     clean() {
@@ -210,7 +212,6 @@ export default {
       this.end = this.numberElements;
     },
     async search() {
-      console.log("entra");
       if (this.selected != "none") {
         var v = ["Men", "Women", "Unisex"];
         this.selected = v[this.selected - 1];
@@ -221,7 +222,6 @@ export default {
         key3: this.querySearch,
         key4: this.selected,
       };
-      console.log(params);
       await this.$store.dispatch("fetchProductsUsedSearch", params);
       this.init = 0;
       this.end = this.numberElements;

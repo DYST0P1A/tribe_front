@@ -23,13 +23,51 @@
         <b-card class="mb-4" align="left">
           <b-card-body align="left">
             <b-card-title>Favoritos</b-card-title>
-         </b-card-body>
+            <div v-for="item in this.favorites" :key="item._id">
+              <b-row align-v="center">
+                <b-col class="col-2 pb-2">
+                  <b-card :img-src="item.images[0].image"> </b-card>
+                </b-col>
+                <b-col align="center">
+                  <router-link
+                    :to="{
+                      name: 'ProductDetail',
+                      params: { id: item._id },
+                    }"
+                  >
+                    <b-label class="product-name">
+                      {{ item.name }}
+                    </b-label>
+                  </router-link>
+                </b-col>
+              </b-row>
+            </div>
+          </b-card-body>
         </b-card>
 
         <b-card class="mb-4" align="left">
           <b-card-body align="left">
             <b-card-title>Wish List</b-card-title>
-         </b-card-body>
+            <div v-for="item in this.wishlist" :key="item._id">
+              <b-row align-v="center">
+                <b-col class="col-2 pb-2">
+                  <b-card :img-src="item.images[0].image"> </b-card>
+                </b-col>
+                <b-col align="center">
+                  <router-link
+                    :to="{
+                      name: 'ProductDetail',
+                      params: { id: item._id },
+                    }"
+                  >
+                    <b-label class="product-name">
+                      {{ item.name }}
+                    </b-label>
+                  </router-link>
+                </b-col>
+              </b-row>
+            </div>
+          </b-card-body>
         </b-card>
       </div>
     </div>
@@ -112,9 +150,17 @@ export default {
     errorMsg: "",
     success: false,
     user: {},
+    wishlist: null,
+    favorites: null,
   }),
   async beforeCreate() {
     this.user = await auth.infoUser();
+    const f = await auth.getFavorites();
+    this.favorites = f.data.favorites;
+    const w = await auth.getWishs();
+    this.wishlist = w.data.wishlist;
+    console.log(this.favorites);
+    console.log(this.wishlist);
   },
   methods: {
     async changePass() {

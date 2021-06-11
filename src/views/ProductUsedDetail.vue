@@ -34,8 +34,11 @@
           <b-card-text bg-variant="dark" align="center">
             Talla: {{ $store.state.productUsed.size }}
           </b-card-text>
+
           <div class="controls">
-            <b-button class="btn btn-tribe m-5" to="/compraventa">Volver</b-button>
+            <b-button class="btn btn-tribe m-5" to="/compraventa"
+              >Volver</b-button
+            >
             <button
               class="btn btn-tribe m-5"
               @click="$store.dispatch('addToCart', item.id)"
@@ -53,13 +56,19 @@
 
 <script>
 import store from "../store/index.js";
-
+import auth from "@/logic/auth";
 export default {
   name: "ProductUsedDetail",
   components: {},
   created() {
     store.dispatch("fetchProductUsed", this.$route.params.id);
   },
+  methods: {
+    async fav() {
+      const res = await auth.productUsedFav()
+      console.log(res)
+    }
+  }
 };
 </script>
 

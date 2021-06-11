@@ -20,26 +20,102 @@ export default new Vuex.Store({
         product: '',
         images: [''],
         sizes: [''],
-        onlySizes: []
-
+        onlySizes: [],
+        userFavs: [],
+        userWishs: []
     },
     mutations: {
         fetchProducts(state, data) {
             state.products = data
+            if (state.userFavs.length == 0) {
+                state.product.forEach(function(element) {
+                    element.fav = true;
+                })
+            } else {
+                state.products.forEach(function(element) {
+                    var fav = state.userFavs.find(p => p._id === element._id)
+                    if (fav) {
+                        element.fav = true;
+                    } else {
+                        element.fav = false;
+                    }
+                });
+            }
+
+            if (state.userWishs.length == 0) {
+                state.product.forEach(function(element) {
+                    element.wish = true;
+                })
+            } else {
+                state.products.forEach(function(element) {
+                    var wish = state.userWishs.find(p => p._id === element._id)
+                    if (wish) {
+                        element.wish = true;
+                    } else {
+                        element.wish = false;
+                    }
+                });
+            }
+            console.log("productosss")
+            console.log(state.products)
         },
         fetchProduct(state, data) {
             state.images = data.images
             state.sizes = data.sizes
             state.onlySizes = data.sizes.map(d => d.size);
             state.product = data
+            var fav = state.userFavs.find(p => p._id === data._id)
+            console.log(data._id)
+            console.log(state.userFavs)
+            console.log(fav)
+            if (fav) {
+                state.product.fav = true;
+            } else {
+                state.product.fav = false;
+            }
+            var wish = state.userWishs.find(p => p._id === data._id)
+            console.log(data._id)
+            console.log(state.userFavs)
+            console.log(fav)
+            if (wish) {
+                state.product.wish = true;
+            } else {
+                state.product.wish = false;
+            }
         },
         fetchProductsUsed(state, data) {
             state.productsUsed = data
+            if (state.userFavs.length == 0) {
+                state.productsUsed.forEach(function(element) {
+                    element.fav = false;
+                })
+            } else {
+                state.productsUsed.forEach(function(element) {
+                    var fav = state.userFavs.find(p => p._id === element._id)
+                    if (fav) {
+                        element.fav = true;
+                    } else {
+                        element.fav = false;
+                    }
+                });
+            }
+        },
+        fetchFavs(state, data) {
+            state.userFavs = data.favorites
+        },
+        fetchWishs(state, data) {
+            state.userWishs = data.wishlist
         },
         fetchProductUsed(state, data) {
             state.images = data.images
             state.sizes = data.sizes
             state.productUsed = data
+            var fav = state.userFavs.find(p => p._id === data._id)
+            if (fav) {
+                state.product.fav = true;
+            } else {
+                state.product.fav = false;
+            }
         },
         fetchCart(state, data) {
             state.cart = data
@@ -54,10 +130,12 @@ export default new Vuex.Store({
             state.categoriesNames = data.map(d => d.name);
         },
         addToCart(state, data) {
+            console.log("se añade")
+            console.log(state.products)
             let product = state.products.find(p => p._id === data.key1)
             state.cart.push({
                 operation: "insert",
-                id_item: product._id,
+                id: product._id,
                 name: product.name,
                 price: product.price,
                 sizeSelected: data.key2,
@@ -100,8 +178,29 @@ export default new Vuex.Store({
         }
     },
     actions: {
-        fetchProductsData({ commit }) {
-            axios.get(url + 'products').then((res) => {
+        async fetchProductsData({ commit }) {
+            const token = 'Bearer ' + auth.getTokenLogged()
+            await axios.get(url + 'users/me/favorites', {
+                headers: {
+                    'Authorization': token
+                }
+            }).then((res) => {
+                commit('fetchFavs', res.data)
+            }).catch(error => {
+                console.log(error.response)
+            })
+
+            await axios.get(url + 'users/me/wishlist', {
+                headers: {
+                    'Authorization': token
+                }
+            }).then((res) => {
+                commit('fetchWishs', res.data)
+            }).catch(error => {
+                console.log(error.response)
+            })
+
+            await axios.get(url + 'products').then((res) => {
                 commit('fetchProducts', res.data)
             })
         },
@@ -177,8 +276,29 @@ export default new Vuex.Store({
                 console.log(error.response)
             })
         },
-        fetchProduct({ commit }, id) {
-            axios.post(url + 'products/getById', { "id": id }, { headers: { 'Content-Type': 'application/json' } }).then((res) => {
+        async fetchProduct({ commit }, id) {
+            const token = 'Bearer ' + auth.getTokenLogged()
+            await axios.get(url + 'users/me/favorites', {
+                headers: {
+                    'Authorization': token
+                }
+            }).then((res) => {
+                commit('fetchFavs', res.data)
+            }).catch(error => {
+                console.log(error.response)
+            })
+
+            await axios.get(url + 'users/me/wishlist', {
+                headers: {
+                    'Authorization': token
+                }
+            }).then((res) => {
+                commit('fetchWishs', res.data)
+            }).catch(error => {
+                console.log(error.response)
+            })
+
+            await axios.post(url + 'products/getById', { "id": id }, { headers: { 'Content-Type': 'application/json' } }).then((res) => {
                 commit('fetchProduct', res.data)
             }).catch(error => {
                 console.log(error.response)
@@ -198,8 +318,19 @@ export default new Vuex.Store({
                 console.log(error.response)
             })
         },
-        fetchProductsUsedData({ commit }) {
-            axios.get(url + 'productsUsed').then((res) => {
+        async fetchProductsUsedData({ commit }) {
+            const token = 'Bearer ' + auth.getTokenLogged()
+            await axios.get(url + 'users/me/favorites', {
+                headers: {
+                    'Authorization': token
+                }
+            }).then((res) => {
+                commit('fetchFavs', res.data)
+            }).catch(error => {
+                console.log(error.response)
+            })
+
+            await axios.get(url + 'productsUsed').then((res) => {
                 commit('fetchProductsUsed', res.data)
             }).catch(error => {
                 console.log(error.response)
@@ -223,7 +354,9 @@ export default new Vuex.Store({
             })
         },
         addToCart(context, data) {
+            console.log("addToCart")
             let product = context.state.cart.find(p => p.id === data.key1)
+            console.log(context.state.cart)
             if (product) {
                 context.commit('increment', data)
                 axios.post(url + 'users/me/cart')
@@ -240,18 +373,6 @@ export default new Vuex.Store({
                     context.commit('decrement', id)
                 }
             }
-        },
-        updateCart({ commit }) {
-            const token = 'Bearer ' + auth.getTokenLogged()
-            axios.get(url + '/users/me/cart', {
-                headers: {
-                    'Authorization': token
-                }
-            }).then((res) => {
-                commit('fetchCart', res.data)
-            }).catch(error => {
-                console.log(error.response)
-            })
         },
         searchBrand({ commit }, query) {
             axios.post(url + 'brands/search', { "query": query }, { headers: { 'Content-Type': 'application/json' } }).then((res) => {

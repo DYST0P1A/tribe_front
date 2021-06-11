@@ -17,12 +17,14 @@
             </div>
           </b-carousel>
 
-          <b-card-text >
+          <b-card-text>
             <b-row class="mt-2">
               <b-col class="col-10" align="left">
                 {{ $store.state.product.name }}
               </b-col>
-              <b-col  class="col-2" align="right"> {{ $store.state.product.price }} € </b-col>
+              <b-col class="col-2" align="right">
+                {{ $store.state.product.price }} €
+              </b-col>
             </b-row>
           </b-card-text>
 
@@ -35,7 +37,10 @@
               <label class="control-label" for="brandname">Tallas</label>
             </b-col>
             <b-col align="left">
-              <b-form-select v-model="sizeSelected" :options="$store.state.onlySizes">
+              <b-form-select
+                v-model="sizeSelected"
+                :options="$store.state.onlySizes"
+              >
                 <template #first>
                   <b-form-select-option :value="null" disabled
                     >-- Escoge talla --</b-form-select-option
@@ -44,14 +49,35 @@
               </b-form-select>
             </b-col>
           </b-row>
+          <b-row align-h="center">
+          <b-col class="col-3">
+            <b-button v-on:click="fav" variant="blank">
+              <b-icon
+                v-if="favValue"
+                variant="warning"
+                icon="star-fill"
+              ></b-icon>
+              <b-icon v-else variant="warning" icon="star"></b-icon>
+            </b-button> 
+          </b-col>
+          <b-col class="col-3">
+            <b-button v-on:click="wish" variant="blank">
+              <b-icon
+                v-if="wishValue"
+                variant="warning"
+                icon="heart-fill"
+              ></b-icon>
+              <b-icon v-else variant="warning" icon="heart"></b-icon>
+            </b-button>
+          </b-col>
+          </b-row>
           <p v-if="error" class="error">Escoge la talla</p>
           <p v-if="success" class="error">¡Añadido al carrito!</p>
           <div class="controls">
-            <b-button class="btn btn-tribe m-5" to="/productos">Volver</b-button>
-            <button
-              class="btn btn-tribe m-5"
-              @click="addToCart()"
+            <b-button class="btn btn-tribe m-5" to="/productos"
+              >Volver</b-button
             >
+            <button class="btn btn-tribe m-5" @click="addToCart()">
               Añadir
             </button>
           </div>
@@ -69,28 +95,55 @@ import auth from "@/logic/auth";
 export default {
   name: "ProductDetail",
   components: {},
-  data:() => ({
+  data: () => ({
     sizeSelected: "",
     error: false,
-    success: false
+    success: false,
+    favValue: false,
+    wishValue: false
   }),
-  created() {
-    store.dispatch("fetchProduct", this.$route.params.id);
+  async created() {
+    await this.$store.dispatch("fetchProductsData");
+    await store.dispatch("fetchProduct", this.$route.params.id);
+    this.favValue = await this.$store.state.product.fav;
+    this.wishValue = await this.$store.state.product.wish;
+
   },
   methods: {
+    async fav() {
+      if (this.favValue) {
+        this.favValue = false;
+      } else {
+        this.favValue = true;
+      }
+      store.state.product._id = this.$route.params.id;
+      await auth.productFav(this.favValue);
+    },
+    async wish() {
+      if (this.wishValue) {
+        this.wishValue = false;
+      } else {
+        this.wishValue = true;
+      }
+      store.state.product._id = this.$route.params.id;
+      await auth.productWish(this.wishValue);
+    },
     addToCart() {
-      if(this.sizeSelected === "") {
-        this.error = true
+      if (this.sizeSelected === "") {
+        this.error = true;
+      } else {
+        this.error = false;
+        const data = {
+          key1: store.state.product._id,
+          key2: this.sizeSelected,
+          key3: store.state.product.brand_id,
+        };
+        console.log(data)
+        this.$store.dispatch("addToCart", data);
+        this.success = true;
       }
-      else {
-        this.error = false
-        const data = {"key1": store.state.product._id, "key2": this.sizeSelected, "key3": store.state.product.brand_id}
-        this.$store.dispatch('addToCart', data)
-        auth.operationCart(data, "insert")
-        this.success=true
-      }
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -1,5 +1,6 @@
 import axios from "axios";
 import Cookies from "js-cookie";
+import store from "../store/index.js";
 
 const ENDPOINT_PATH = "https://tribeback.herokuapp.com/api";
 
@@ -100,23 +101,108 @@ export default {
             }
         })
     },
-    async operationCart(data, operation) {
-        const res = await axios.post(ENDPOINT_PATH + '/brands/searchById', { "id": data.key3 })
-        console.log(res)
+    productUsedFav() {
+        console.log("entra")
         const token = 'Bearer ' + this.getTokenLogged()
-        const msg = {
-            "operation": operation,
-            "id_item": data.key1,
-            "sizeSelected": data.key2,
-            "quantity": 1,
-            "type": "brand",
-            "emailSeller": res.data.email
+        var operation
+        if (store.state.productUsed.fav) {
+            operation = ""
+        } else {
+            operation = "insert"
         }
-        return axios.post(ENDPOINT_PATH + '/users/me/cart', msg, {
+        const id_item = store.state.productUsed._id
+        console.log(operation)
+        console.log(id_item)
+        return axios.post(ENDPOINT_PATH + '/users/me/favorites', {
+            "operation": operation,
+            "id_item": id_item
+        }, {
             headers: {
                 'Authorization': token,
                 'Content-Type': 'application/json'
             }
         })
     },
+    productUsedWish() {
+        console.log("entra")
+        const token = 'Bearer ' + this.getTokenLogged()
+        var operation
+        if (store.state.productUsed.wish) {
+            operation = ""
+        } else {
+            operation = "insert"
+        }
+        const id_item = store.state.productUsed._id
+        console.log(operation)
+        console.log(id_item)
+        return axios.post(ENDPOINT_PATH + '/users/me/wishlist', {
+            "operation": operation,
+            "id_item": id_item
+        }, {
+            headers: {
+                'Authorization': token,
+                'Content-Type': 'application/json'
+            }
+        })
+    },
+    productFav(fav) {
+        const token = 'Bearer ' + this.getTokenLogged()
+        var operation
+        if (fav) {
+            operation = "insert"
+        } else {
+            operation = "delete"
+        }
+        const id_item = store.state.product._id
+        console.log(operation)
+        console.log(id_item)
+        return axios.post(ENDPOINT_PATH + '/users/me/favorites', {
+            "operation": operation,
+            "id_item": id_item
+        }, {
+            headers: {
+                'Authorization': token,
+                'Content-Type': 'application/json'
+            }
+        })
+    },
+    productWish(wish) {
+        const token = 'Bearer ' + this.getTokenLogged()
+        var operation
+        if (wish) {
+            operation = "insert"
+        } else {
+            operation = "delete"
+        }
+        const id_item = store.state.product._id
+        console.log(operation)
+        console.log(id_item)
+        return axios.post(ENDPOINT_PATH + '/users/me/wishlist', {
+            "operation": operation,
+            "id_item": id_item
+        }, {
+            headers: {
+                'Authorization': token,
+                'Content-Type': 'application/json'
+            }
+        })
+    },
+    getFavorites() {
+        const token = 'Bearer ' + this.getTokenLogged()
+        return axios.get(ENDPOINT_PATH + '/users/me/favorites', {
+            headers: {
+                'Authorization': token,
+                'Content-Type': 'application/json'
+            }
+        })
+    },
+    getWishs() {
+        const token = 'Bearer ' + this.getTokenLogged()
+        return axios.get(ENDPOINT_PATH + '/users/me/wishlist', {
+            headers: {
+                'Authorization': token,
+                'Content-Type': 'application/json'
+            }
+        })
+    }
 };

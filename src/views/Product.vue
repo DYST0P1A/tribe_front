@@ -26,17 +26,27 @@
                 <b-row>
                   <b-col>
                     <div class="controls">
-                      <router-link
-                        :to="{
-                          name: 'ProductDetail',
-                          params: { id: item._id },
-                        }"
-                      >
-                        <b-button class="mr-3 btn-tribe">Ver</b-button>
-                        
-                      </router-link>
+                        <b-button @click="navigate(item._id)" class="mr-3 btn-tribe">Ver</b-button>
                     </div>
                   </b-col>
+                   <b-col class="col-3">
+                    <b-icon v-if="item.fav" variant="warning" icon="star-fill"></b-icon>
+                    <b-icon v-else variant="warning" icon="star"></b-icon> 
+                  </b-col>
+                  
+                   <b-col class="col-3">
+                    <b-icon
+                      v-if="item.wish"
+                      variant="warning"
+                      icon="heart-fill"
+                    ></b-icon>
+                    <b-icon
+                      v-else
+                      variant="warning"
+                      icon="heart"
+                    ></b-icon> 
+                  </b-col>
+
                 </b-row>
               </b-card>
             </b-col>
@@ -188,7 +198,7 @@ export default {
     init: 0,
     end: 9,
     numberElements: 9,
-    numberPage : 1
+    numberPage: 1,
   }),
   components: {
     CartProduct,
@@ -197,6 +207,11 @@ export default {
     await this.$store.dispatch("fetchProductsData");
   },
   methods: {
+    navigate(id) {
+      this.$router.go(
+        this.$router.push({ name: "ProductDetail", params: { id: id} })
+      );
+    },
     clean() {
       this.$store.dispatch("fetchProductsData");
       this.min = 0;
@@ -218,15 +233,9 @@ export default {
         key4: this.selected,
       };
       await this.$store.dispatch("fetchProductsSearch2", params);
-      this.init = 0
-      this.end = this.numberElements
-      this.numberPage = 1
-    },
-    addToCart(id) {
-      this.$store.dispatch("addToCart", id);
-    },
-    decrement(id) {
-      this.$store.dispatch("decrement", id);
+      this.init = 0;
+      this.end = this.numberElements;
+      this.numberPage = 1;
     },
     next() {
       if (
@@ -235,14 +244,14 @@ export default {
       ) {
         this.init = this.init + this.numberElements;
         this.end = this.end + this.numberElements;
-        this.numberPage = this.end/this.numberElements
+        this.numberPage = this.end / this.numberElements;
       }
     },
     prev() {
       if (this.init - this.numberElements >= 0) {
         this.init = this.init - this.numberElements;
         this.end = this.end - this.numberElements;
-        this.numberPage = this.end/this.numberElements
+        this.numberPage = this.end / this.numberElements;
       }
     },
   },
